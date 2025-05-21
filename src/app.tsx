@@ -21,3 +21,25 @@ function AppContent() {
   const { user, isAuthenticated } = useAuth();
   const [cityFilter, setCityFilter] = useState('');
   const [searchParams, setSearchParams] = useState({ query: '', city: '' });
+
+    
+  useEffect(() => {
+    let filtered = [...books];
+    
+    // Filter by search query
+    if (searchParams.query) {
+      const query = searchParams.query.toLowerCase();
+      filtered = filtered.filter(book => 
+        book.title.toLowerCase().includes(query) || 
+        book.author.toLowerCase().includes(query) || 
+        book.genre.toLowerCase().includes(query)
+      );
+    }
+    
+    // Filter by city
+    if (searchParams.city) {
+      filtered = filtered.filter(book => book.city.toLowerCase() === searchParams.city.toLowerCase());
+    }
+    
+    setFilteredBooks(filtered);
+  }, [books, searchParams]);
