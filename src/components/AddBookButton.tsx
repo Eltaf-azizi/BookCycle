@@ -47,3 +47,31 @@ const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
       images: ['https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg'],
     });
   };
+    
+    
+  return (
+    <>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="fixed right-6 bottom-6 md:right-10 md:bottom-10 bg-[#C14953] text-white rounded-full p-3 md:p-4 shadow-lg hover:bg-[#a73f48] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2 z-40"
+        aria-label="Add Book"
+      >
+        <Plus className="h-6 w-6 md:h-8 md:w-8" />
+      </button>
+      
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 md:mx-0 my-8 overflow-hidden">
+            <div className="flex justify-between items-center p-6 border-b">
+              <div className="flex items-center">
+                <BookOpen className="h-6 w-6 text-[#C14953] mr-2" />
+                <h2 className="text-xl font-semibold text-[#2D3142]">Add Your Book</h2>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
