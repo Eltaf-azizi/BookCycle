@@ -238,3 +238,52 @@ const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
                     <p className="text-xs text-gray-400 mt-1">
                       PNG, JPG, JPEG up to 5 MB (max 3 images)
                     </p>
+                    <button
+                      type="button"
+                      className="mt-4 px-4 py-2 border border-[#6C9A8B] text-[#6C9A8B] rounded-md hover:bg-[#6C9A8B] hover:text-white transition-colors"
+                    >
+                      Upload Images
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="pb-6 pt-2">
+                  <div className="flex items-center mb-4">
+                    <input
+                      id="availability"
+                      type="checkbox"
+                      checked
+                      readOnly
+                      className="h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                    />
+                    <label htmlFor="availability" className="ml-2 block text-sm text-gray-700">
+                      Available for Exchange
+                    </label>
+                  </div>
+                  
+                  <div className="flex justify-end space-x-3">
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-[#C14953] text-white rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2"
+                    >
+                      Add Book
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default AddBookButton;
