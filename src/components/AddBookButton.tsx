@@ -210,3 +210,31 @@ const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
                   />
                 </div>
+                
+                <div>
+                  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                    Description (Optional)
+                  </label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    rows={3}
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                    placeholder="Tell others about the book, edition, or any special notes..."
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Upload Photos
+                  </label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-md p-6 flex flex-col items-center">
+                    <Image className="h-12 w-12 text-gray-400" />
+                    <p className="mt-1 text-sm text-gray-500">
+                      Drag and drop image files here, or click to select files
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      PNG, JPG, JPEG up to 5 MB (max 3 images)
+                    </p>
