@@ -160,3 +160,53 @@ const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
                       required
                     >
+                      <option value="" disabled>Select genre</option>
+                      <option value="Fiction">Fiction</option>
+                      <option value="Non-Fiction">Non-Fiction</option>
+                      <option value="Academic">Academic</option>
+                      <option value="Children">Children</option>
+                      <option value="Self-Help">Self-Help</option>
+                      <option value="Biography">Biography</option>
+                      <option value="History">History</option>
+                      <option value="Science">Science</option>
+                      <option value="Religion">Religion</option>
+                      <option value="Poetry">Poetry</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                      City*
+                    </label>
+                    <select
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      required
+                    >
+                      <option value="" disabled>Select your city</option>
+                      {pakistanCities.map(city => (
+                        <option key={city.id} value={city.name}>
+                          {city.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="exactLocation" className="block text-sm font-medium text-gray-700 mb-1">
+                    Exact Location (visible only after request accepted)
+                  </label>
+                  <input
+                    type="text"
+                    id="exactLocation"
+                    name="exactLocation"
+                    placeholder="e.g., DHA Phase 5, Gulberg, etc."
+                    value={formData.exactLocation}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                  />
+                </div>
