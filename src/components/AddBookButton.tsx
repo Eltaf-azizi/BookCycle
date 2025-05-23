@@ -125,3 +125,38 @@ const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
                     />
                   </div>
+
+                  <div>
+                    <label htmlFor="condition" className="block text-sm font-medium text-gray-700 mb-1">
+                      Condition*
+                    </label>
+                    <select
+                      id="condition"
+                      name="condition"
+                      value={formData.condition}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      required
+                    >
+                      <option value="" disabled>Select condition</option>
+                      <option value="New">New</option>
+                      <option value="Like New">Like New</option>
+                      <option value="Good">Good</option>
+                      <option value="Worn">Worn</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="genre" className="block text-sm font-medium text-gray-700 mb-1">
+                      Genre*
+                    </label>
+                    <select
+                      id="genre"
+                      name="genre"
+                      value={formData.genre}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      required
+                    >
