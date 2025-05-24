@@ -197,3 +197,72 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     required
                   />
                 </div>
+
+                <div className="mb-4">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                    required
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    min="13"
+                    max="120"
+                    value={formData.age}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                    required
+                  />
+                </div>
+                
+                <div className="mb-4">
+                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                    City
+                  </label>
+                  <select
+                    id="city"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                    required
+                  >
+                    <option value="" disabled>Select your city</option>
+                    {pakistanCities.map(city => (
+                      <option key={city.id} value={city.id}>
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="mb-6 relative">
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      minLength={8}
+                      required
+                    />
