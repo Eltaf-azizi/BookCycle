@@ -43,3 +43,31 @@ function AppContent() {
     
     setFilteredBooks(filtered);
   }, [books, searchParams]);
+
+  const handleSearch = (params: { query: string; city: string }) => {
+    setSearchParams(params);
+  };
+  
+  const handleAddBook = (bookData: any) => {
+    if (!isAuthenticated) {
+      setAuthType('login');
+      setIsAuthModalOpen(true);
+      return;
+    }
+    
+    // In a real app, this would make an API call
+    const newBook: Book = {
+      ...bookData,
+      ownerId: user?.id || '',
+      ownerName: user?.name || '',
+    };
+    
+    setBooks(prev => [newBook, ...prev]);
+  };
+  
+  const handleRequestBook = (bookId: string) => {
+    if (!isAuthenticated) {
+      setAuthType('login');
+      setIsAuthModalOpen(true);
+      return;
+    }
