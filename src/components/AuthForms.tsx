@@ -104,3 +104,36 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     required
                   />
                 </div>
+
+                <div className="mb-6 relative">
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+                  </div>
+                  <div className="mt-1 text-right">
+                    <a href="#" className="text-sm text-[#C14953] hover:underline">
+                      Forgot password?
+                    </a>
+                  </div>
+                </div>
