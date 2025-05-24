@@ -137,3 +137,28 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     </a>
                   </div>
                 </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-[#C14953] text-white py-2 px-4 rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2 disabled:opacity-70"
+                >
+                  {isLoading ? 'Logging in...' : 'Login'}
+                </button>
+                
+                <div className="mt-4 text-center text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      setTimeout(() => document.getElementById('signup-btn')?.click(), 100);
+                    }}
+                    className="text-[#C14953] hover:underline"
+                  >
+                    Sign up
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
