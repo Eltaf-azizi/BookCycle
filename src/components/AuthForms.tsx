@@ -82,7 +82,7 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                   {error}
                 </div>
               )}
-
+              
               {success && (
                 <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
                   {success}
@@ -104,7 +104,7 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     required
                   />
                 </div>
-
+                
                 <div className="mb-6 relative">
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                     Password
@@ -137,7 +137,7 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     </a>
                   </div>
                 </div>
-
+                
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -162,7 +162,7 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
               </form>
             </>
           )}
-
+          
           {type === 'signup' && (
             <>
               <div className="text-center mb-6">
@@ -197,7 +197,7 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     required
                   />
                 </div>
-
+                
                 <div className="mb-4">
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                     Email Address
@@ -266,3 +266,51 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                       minLength={8}
                       required
                     />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+                  </div>
+                  <div className="mt-1 text-xs text-gray-500">
+                    Password must be at least 8 characters
+                  </div>
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-[#C14953] text-white py-2 px-4 rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2 disabled:opacity-70"
+                >
+                  {isLoading ? 'Signing up...' : 'Sign Up'}
+                </button>
+                
+                <div className="mt-4 text-center text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      setTimeout(() => document.getElementById('login-btn')?.click(), 100);
+                    }}
+                    className="text-[#C14953] hover:underline"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AuthForms;
