@@ -92,3 +92,31 @@ function AppContent() {
       )
     );
   };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#F7F3E3]">
+      <Header 
+        onLoginClick={() => {
+          setAuthType('login');
+          setIsAuthModalOpen(true);
+        }}
+        onSignupClick={() => {
+          setAuthType('signup');
+          setIsAuthModalOpen(true);
+        }}
+      />
+      
+      <main className="flex-grow pt-16">
+        {/* Hero Section */}
+        <section className="relative bg-[#2D3142] text-white py-16 md:py-24">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2D3142] to-[#4F5D75] mix-blend-multiply"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-10">
+              <BookOpen className="h-16 w-16 text-[#C14953] mx-auto mb-4" />
+              <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                Share Books, Spread Knowledge
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                Give your books a new life and discover your next great read in Pakistan's first community-driven book exchange
+              </p>
+            </div>
