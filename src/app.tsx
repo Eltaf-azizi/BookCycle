@@ -166,3 +166,28 @@ function AppContent() {
                 </div>
               </div>
             </div>
+                        
+            {filteredBooks.length > 0 ? (
+              <BookGrid books={filteredBooks} onRequestBook={handleRequestBook} />
+            ) : (
+              <div className="text-center py-12">
+                <div className="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto">
+                  <BookOpen className="h-12 w-12 text-[#C14953] mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-[#2D3142] mb-2">No Books Found</h3>
+                  <p className="text-gray-600">
+                    We couldn't find any books matching your search criteria. Try adjusting your filters or add your own books to the exchange!
+                  </p>
+                  
+                  <button
+                    onClick={() => {
+                      setSearchParams({ query: '', city: '' });
+                    }}
+                    className="mt-4 px-4 py-2 bg-[#6C9A8B] text-white rounded-md hover:bg-[#5a7f73] transition-colors inline-flex items-center"
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
