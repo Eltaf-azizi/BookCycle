@@ -71,3 +71,24 @@ function AppContent() {
       setIsAuthModalOpen(true);
       return;
     }
+
+    const book = books.find(b => b.id === bookId);
+    if (book) {
+      setSelectedBook(book);
+      setIsRequestModalOpen(true);
+    }
+  };
+  
+  const handleSubmitRequest = (request: Partial<BookRequest>) => {
+    // In a real app, this would make an API call
+    console.log('Book request submitted:', request);
+    
+    // Update the book status to Reserved
+    setBooks(prev => 
+      prev.map(book => 
+        book.id === request.bookId 
+          ? { ...book, status: 'Reserved' } 
+          : book
+      )
+    );
+  };
