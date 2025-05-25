@@ -146,3 +146,23 @@ function AppContent() {
             </div>
           </div>
         </section>
+
+        {/* Books Grid Section */}
+        <section className="py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#2D3142]">Available Books</h2>
+                <p className="text-gray-600 mt-1">Browse books available for exchange</p>
+              </div>
+              
+              <div className="mt-4 sm:mt-0">
+                <div className="flex items-center">
+                  <span className="text-sm text-gray-700 mr-2">Sort by:</span>
+                  <button className="flex items-center text-sm font-medium text-[#2D3142] border border-gray-300 rounded-md px-3 py-1 hover:bg-gray-50 transition-colors">
+                    Newest First
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
