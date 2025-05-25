@@ -120,3 +120,29 @@ function AppContent() {
                 Give your books a new life and discover your next great read in Pakistan's first community-driven book exchange
               </p>
             </div>
+
+
+            <SearchBar onSearch={handleSearch} />
+            
+            <div className="mt-12 text-center">
+              <p className="text-gray-300 mb-3">
+                Exchange books in major cities across Pakistan
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad'].map(city => (
+                  <button
+                    key={city}
+                    onClick={() => handleSearch({ ...searchParams, city: city.toLowerCase() })}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      searchParams.city === city.toLowerCase()
+                        ? 'bg-[#C14953] text-white'
+                        : 'bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors'
+                    }`}
+                  >
+                    {city}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
