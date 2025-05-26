@@ -191,3 +191,32 @@ function AppContent() {
             )}
           </div>
         </section>
+        
+        {/* How It Works Section */}
+        <section className="py-12 md:py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#2D3142]">How It Works</h2>
+              <p className="text-gray-600 mt-1">Simple steps to start exchanging books</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-[#F7F3E3] rounded-lg p-6 text-center">
+                <div className="bg-[#C14953] text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl font-bold">1</span>
+                </div>
+                <h3 className="text-xl font-semibold text-[#2D3142] mb-2">List Your Books</h3>
+                <p className="text-gray-600">
+                  Add books you no longer need to your profile. Include photos and details about the condition.
+                </p>
+              </div>
+              
+              <div className="bg-[#F7F3E3] rounded-lg p-6 text-center">
+                <div className="bg-[#C14953] text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl font-bold">2</span>
+                </div>
+                <h3 className="text-xl font-semibold text-[#2D3142] mb-2">Connect With Others</h3>
+                <p className="text-gray-600">
+                  Browse books available in your city, or request books from other cities with shipping options.
+                </p>
+              </div>
