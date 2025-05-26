@@ -248,3 +248,35 @@ function AppContent() {
           </div>
         </section>
       </main>
+
+
+      <Footer />
+      
+      {/* Add Book Button */}
+      <AddBookButton onAddBook={handleAddBook} />
+      
+      {/* Auth Modal */}
+      <AuthForms
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        type={authType}
+      />
+      
+      {/* Request Modal */}
+      <RequestModal
+        isOpen={isRequestModalOpen}
+        onClose={() => setIsRequestModalOpen(false)}
+        book={selectedBook}
+        onSubmit={handleSubmitRequest}
+      />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
