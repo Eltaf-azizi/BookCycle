@@ -220,3 +220,31 @@ function AppContent() {
                   Browse books available in your city, or request books from other cities with shipping options.
                 </p>
               </div>
+
+              <div className="bg-[#F7F3E3] rounded-lg p-6 text-center">
+                <div className="bg-[#C14953] text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl font-bold">3</span>
+                </div>
+                <h3 className="text-xl font-semibold text-[#2D3142] mb-2">Exchange & Enjoy</h3>
+                <p className="text-gray-600">
+                  Meet in a public place or arrange shipping to complete the exchange. Rate your experience afterward.
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-10 text-center">
+              <button
+                onClick={() => {
+                  if (!isAuthenticated) {
+                    setAuthType('signup');
+                    setIsAuthModalOpen(true);
+                  }
+                }}
+                className="px-6 py-3 bg-[#C14953] text-white rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2"
+              >
+                {isAuthenticated ? 'Add Your Books' : 'Join The Community'}
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
