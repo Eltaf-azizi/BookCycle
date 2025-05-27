@@ -89,3 +89,25 @@ const BookCard: React.FC<BookCardProps> = ({ book, onRequest }) => {
             {book.condition}
           </span>
         </div>
+
+        <div className="absolute top-2 right-2">
+          <span className="bg-black bg-opacity-70 text-white text-xs font-medium px-2 py-1 rounded-full">
+            {book.images.length > 1 ? `${currentImageIndex + 1}/${book.images.length}` : '1 Photo'}
+          </span>
+        </div>
+      </div>
+      
+      {/* Book Info */}
+      <div className="p-4 flex-grow flex flex-col">
+        <h3 className="text-lg font-semibold text-[#2D3142] line-clamp-1">{book.title}</h3>
+        <p className="text-gray-600 text-sm">{book.author}</p>
+        
+        <div className="mt-2 flex items-center">
+          <Book className="h-4 w-4 text-[#6C9A8B] mr-1" />
+          <span className="text-sm text-gray-700">{book.genre}</span>
+        </div>
+        
+        <div className="mt-2 flex items-center">
+          <MapPin className="h-4 w-4 text-[#C14953] mr-1" />
+          <span className="text-sm text-gray-700">{book.city}</span>
+        </div>
