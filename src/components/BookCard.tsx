@@ -24,3 +24,28 @@ const BookCard: React.FC<BookCardProps> = ({ book, onRequest }) => {
         return 'bg-gray-100 text-gray-800';
     }
   };
+
+  const formatDate = (date: Date) => {
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+    
+    if (diff === 0) {
+      return 'Today';
+    } else if (diff === 1) {
+      return 'Yesterday';
+    } else if (diff < 7) {
+      return `${diff} days ago`;
+    } else if (diff < 30) {
+      const weeks = Math.floor(diff / 7);
+      return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+    } else {
+      const months = Math.floor(diff / 30);
+      return `${months} ${months === 1 ? 'month' : 'months'} ago`;
+    }
+  };
+  
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === book.images.length - 1 ? 0 : prevIndex + 1);
+  };
+  
