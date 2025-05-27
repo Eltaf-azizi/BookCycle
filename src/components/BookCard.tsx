@@ -49,3 +49,24 @@ const BookCard: React.FC<BookCardProps> = ({ book, onRequest }) => {
       prevIndex === book.images.length - 1 ? 0 : prevIndex + 1);
   };
   
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? book.images.length - 1 : prevIndex - 1);
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-[1.02] transition-transform duration-300 flex flex-col h-full">
+      {/* Book Image */}
+      <div className="relative h-48 sm:h-64 bg-gray-200">
+        <img
+          src={book.images[currentImageIndex]}
+          alt={book.title}
+          className="w-full h-full object-cover"
+        />
+        
+        {book.images.length > 1 && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-1 rounded-full hover:bg-opacity-70 transition-colors"
+            ></button>
