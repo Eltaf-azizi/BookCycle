@@ -111,3 +111,26 @@ const BookCard: React.FC<BookCardProps> = ({ book, onRequest }) => {
           <MapPin className="h-4 w-4 text-[#C14953] mr-1" />
           <span className="text-sm text-gray-700">{book.city}</span>
         </div>
+        
+        <div className="mt-2 flex items-center">
+          <User className="h-4 w-4 text-[#2D3142] mr-1" />
+          <span className="text-sm text-gray-700">{book.ownerName}</span>
+        </div>
+        
+        <div className="mt-2 flex items-center">
+          <Clock className="h-4 w-4 text-gray-500 mr-1" />
+          <span className="text-xs text-gray-500">Added {formatDate(book.createdAt)}</span>
+        </div>
+        
+        <button
+          onClick={() => onRequest(book.id)}
+          className="mt-4 bg-[#C14953] hover:bg-[#a73f48] text-white py-2 rounded-md transition-colors w-full font-medium focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2"
+        >
+          I Want This Book
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default BookCard;
