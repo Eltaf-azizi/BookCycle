@@ -42,3 +42,25 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
+
+          <div className="col-span-1">
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Resources</h3>
+            <ul className="mt-4 space-y-3">
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Help Center</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Safety Guidelines</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Community Rules</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Terms of Service</a>
+              </li>
+            </ul>
+          </div>
+          
