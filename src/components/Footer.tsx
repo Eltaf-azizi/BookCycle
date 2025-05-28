@@ -22,3 +22,23 @@ const Footer: React.FC = () => {
             </div>
           </div>
           
+          <div className="col-span-1">
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Explore</h3>
+            <ul className="mt-4 space-y-3">
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Home</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Browse Books</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">How It Works</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Featured Books</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white text-sm">Cities</a>
+              </li>
+            </ul>
+          </div>
