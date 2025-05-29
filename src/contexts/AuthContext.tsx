@@ -37,3 +37,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         rating: 5.0,
         joinedAt: new Date(),
       };
+      setUser(mockUser);
+      localStorage.setItem('user', JSON.stringify(mockUser));
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signup = async (userData: Partial<User>, password: string) => {
+    setIsLoading(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const newUser: User = {
+        ...userData as User,
+        id: Date.now().toString(),
+        rating: 5.0,
+        joinedAt: new Date(),
+      };
+      setUser(newUser);
+      localStorage.setItem('user', JSON.stringify(newUser));
+    } catch (error) {
+      console.error('Signup error:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
