@@ -64,3 +64,26 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           
+          <div className="col-span-1">
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Contact Us</h3>
+            <ul className="mt-4 space-y-3">
+              <li className="flex items-center">
+                <Mail className="h-5 w-5 text-[#C14953] mr-2" />
+                <a href="mailto:info@bookcycle.pk" className="text-gray-300 hover:text-white text-sm">info@bookcycle.pk</a>
+              </li>
+              <li className="flex items-center">
+                <Phone className="h-5 w-5 text-[#C14953] mr-2" />
+                <a href="tel:+923001234567" className="text-gray-300 hover:text-white text-sm">+92 300 123 4567</a>
+              </li>
+              <li className="flex items-start">
+                <MapPin className="h-5 w-5 text-[#C14953] mr-2 mt-1" />
+                <span className="text-gray-300 text-sm">Lahore, Karachi, Islamabad, and all major cities across Pakistan</span>
+              </li>
+            </ul>
+            <div className="mt-6">
+              <button className="bg-[#C14953] hover:bg-[#a73f48] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                Send Message
+              </button>
+            </div>
+          </div>
+        </div>
