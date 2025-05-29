@@ -113,3 +113,14 @@ const Footer: React.FC = () => {
                    5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
               </svg>
             </a>
+            </div>
+          <p className="mt-6 text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} BookCycle Pakistan. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
