@@ -14,3 +14,25 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const getInitials = (name: string) => {
+    return name.charAt(0).toUpperCase();
+  };
+
+  const getRandomColor = (name: string) => {
+    const colors = ['bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500'];
+    const index = name.length % colors.length;
+    return colors[index];
+  };
+
+  return (
+    <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <BookOpen className="h-8 w-8 text-[#C14953]" />
+            <span className="ml-2 text-xl font-semibold text-[#2D3142]">
+              BookCycle <span className="text-[#C14953]">Pakistan</span>
+            </span>
+          </div>
+          
