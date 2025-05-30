@@ -36,3 +36,29 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
             </span>
           </div>
           
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-4">
+            <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Home
+            </a>
+            <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              Browse Books
+            </a>
+            <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              How It Works
+            </a>
+            
+            {isAuthenticated ? (
+              <>
+                <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  My Books
+                </a>
+                <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  Messages
+                </a>
+                <div className="relative ml-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2">
+                      <div className={`h-8 w-8 rounded-full flex items-center justify-center text-white font-semibold ${getRandomColor(user?.name || '')}`}>
+                        {getInitials(user?.name || '')}
+                      </div>
