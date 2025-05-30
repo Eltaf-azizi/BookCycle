@@ -66,3 +66,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(false);
     }
   };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        signup,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
