@@ -62,3 +62,23 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center text-white font-semibold ${getRandomColor(user?.name || '')}`}>
                         {getInitials(user?.name || '')}
                       </div>
+                      <span className="text-sm font-medium text-[#2D3142]">{user?.name.split(' ')[0]}</span>
+                    </div>
+                    <button
+                      onClick={logout}
+                      className="flex items-center text-[#2D3142] hover:text-[#C14953] transition-colors"
+                      title="Sign Out"
+                    >
+                      <LogOut className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={onLoginClick}
+                  className="text-[#2D3142] border border-[#6C9A8B] hover:bg-[#6C9A8B] hover:text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Login
+                </button>
