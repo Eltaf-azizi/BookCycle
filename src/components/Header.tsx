@@ -107,3 +107,24 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
           </div>
         </div>
       </div>
+
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden">
+          <div className="pt-2 pb-3 space-y-1 bg-white shadow-lg rounded-b-lg">
+            <a href="#" className="block px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]">
+              Home
+            </a>
+            <a href="#" className="block px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]">
+              Browse Books
+            </a>
+            <a href="#" className="block px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]">
+              How It Works
+            </a>
+            
+            {isAuthenticated ? (
+              <>
+                <a href="#" className="block px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]">
+                  My Books
+                </a>
