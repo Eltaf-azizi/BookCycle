@@ -145,5 +145,31 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
                     <LogOut className="h-6 w-6" />
                     <span className="ml-2">Sign Out</span>
                   </button>
+                </div>
+              </>
+            ) : (
+              <div className="px-4 py-3 space-y-2">
+                <button
+                  onClick={onLoginClick}
+                  className="w-full text-center text-[#2D3142] border border-[#6C9A8B] hover:bg-[#6C9A8B] hover:text-white px-4 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={onSignupClick}
+                  className="w-full text-center bg-[#C14953] text-white hover:bg-[#a73f48] px-4 py-2 rounded-md text-base font-medium transition-colors"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default Header;
 
                   
