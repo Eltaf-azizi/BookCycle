@@ -82,3 +82,28 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
                 >
                   Login
                 </button>
+                <button
+                  onClick={onSignupClick}
+                  className="bg-[#C14953] text-white hover:bg-[#a73f48] px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+          </nav>
+          
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#2D3142] hover:text-[#C14953] focus:outline-none"
+            >
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
