@@ -130,3 +130,39 @@ export const MOCK_REQUESTS: BookRequest[] = [
     createdAt: new Date('2023-12-10'),
   }
 ];
+
+// Mock Messages
+export const MOCK_MESSAGES: Message[] = [
+  {
+    id: '1',
+    senderId: '1',
+    receiverId: '3',
+    content: 'Hi Ahmed, I\'m interested in "A Brief History of Time". When would be a good time to meet?',
+    createdAt: new Date('2023-12-11T10:30:00'),
+    read: true,
+  },
+  {
+    id: '2',
+    senderId: '3',
+    receiverId: '1',
+    content: 'Hello Ali! I can meet you this Saturday at Packages Mall around 3 PM. Does that work for you?',
+    createdAt: new Date('2023-12-11T11:45:00'),
+    read: true,
+  },
+  {
+    id: '3',
+    senderId: '1',
+    receiverId: '3',
+    content: 'Saturday at 3 PM works perfectly. I\'ll see you at the main entrance of Packages Mall.',
+    createdAt: new Date('2023-12-11T12:15:00'),
+    read: true,
+  },
+  {
+    id: '4',
+    senderId: '3',
+    receiverId: '1',
+    content: 'Great! I\'ll be wearing a blue jacket so you can recognize me. Looking forward to meeting you.',
+    createdAt: new Date('2023-12-11T12:30:00'),
+    read: false,
+  }
+];
