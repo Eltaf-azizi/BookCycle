@@ -20,3 +20,31 @@ export const MOCK_BOOKS: Book[] = [
     status: 'Available',
     createdAt: new Date('2023-07-10'),
   },
+  {
+    id: '2',
+    title: 'A Brief History of Time',
+    author: 'Stephen Hawking',
+    isbn: '9780553380163',
+    condition: 'Good',
+    genre: 'Non-Fiction',
+    description: 'A landmark volume in science writing by one of the great minds of our time.',
+    images: [
+      'https://images.pexels.com/photos/3747139/pexels-photo-3747139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    ownerId: '3',
+    ownerName: 'Ahmed Raza',
+    city: 'Lahore',
+    status: 'Available',
+    createdAt: new Date('2023-08-15'),
+  },
+  {
+    id: '3',
+    title: 'To Kill a Mockingbird',
+    author: 'Harper Lee',
+    isbn: '9780061120084',
+    condition: 'Worn',
+    genre: 'Fiction',
+    description: 'A gripping, heart-wrenching, and wholly remarkable tale of coming-of-age in a South poisoned by virulent prejudice.',
+    images: [
+      'https://images.pexels.com/photos/3747512/pexels-photo-3747512.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
