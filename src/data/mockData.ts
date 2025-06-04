@@ -105,4 +105,28 @@ export const MOCK_BOOKS: Book[] = [
     status: 'Available',
     createdAt: new Date('2023-12-15'),
   }
+];];
+
+// Mock Book Requests
+export const MOCK_REQUESTS: BookRequest[] = [
+  {
+    id: '1',
+    bookId: '1',
+    requesterId: '1',
+    requesterName: 'Ali Ahmed',
+    ownerId: '2',
+    status: 'Pending',
+    message: 'I would love to read this book. I can meet in DHA Phase 5 or arrange pickup.',
+    createdAt: new Date('2023-12-20'),
+  },
+  {
+    id: '2',
+    bookId: '2',
+    requesterId: '1',
+    requesterName: 'Ali Ahmed',
+    ownerId: '3',
+    status: 'Accepted',
+    message: 'I\'ve been looking for this book for my physics studies!',
+    createdAt: new Date('2023-12-10'),
+  }
 ];
