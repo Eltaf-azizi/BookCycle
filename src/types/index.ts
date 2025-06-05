@@ -25,3 +25,23 @@ export interface Book {
   status: 'Available' | 'Reserved' | 'Given Away';
   createdAt: Date;
 }
+
+export interface BookRequest {
+  id: string;
+  bookId: string;
+  requesterId: string;
+  requesterName: string;
+  ownerId: string;
+  status: 'Pending' | 'Accepted' | 'Rejected' | 'Completed';
+  message?: string;
+  createdAt: Date;
+}
+
+export interface Message {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+  createdAt: Date;
+  read: boolean;
+}
