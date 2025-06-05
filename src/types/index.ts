@@ -45,3 +45,25 @@ export interface Message {
   createdAt: Date;
   read: boolean;
 }
+
+
+export interface City {
+  id: string;
+  name: string;
+}
+
+
+export const pakistanCities: City[] = [
+  { id: 'karachi', name: 'Karachi' },
+  { id: 'lahore', name: 'Lahore' },
+  { id: 'islamabad', name: 'Islamabad' },
+  { id: 'rawalpindi', name: 'Rawalpindi' },
+  { id: 'faisalabad', name: 'Faisalabad' },
+  { id: 'multan', name: 'Multan' },
+  { id: 'peshawar', name: 'Peshawar' },
+  { id: 'quetta', name: 'Quetta' },
+  { id: 'sialkot', name: 'Sialkot' },
+  { id: 'gujranwala', name: 'Gujranwala' },
+  { id: 'hyderabad', name: 'Hyderabad' },
+  { id: 'abbottabad', name: 'Abbottabad' },
+];
