@@ -90,3 +90,27 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, onClose, book, onSu
                 required
               />
             </div>
+
+             <div className="bg-[#F7F3E3] p-4 rounded-md mb-6">
+              <div className="flex items-start">
+                <MessageSquare className="h-5 w-5 text-[#6C9A8B] mt-0.5 mr-2" />
+                <div>
+                  <h4 className="text-sm font-medium text-[#2D3142]">What happens next?</h4>
+                  <p className="text-xs text-gray-700 mt-1">
+                    1. The book owner will be notified of your request.<br />
+                    2. If they accept, you'll be able to chat and arrange the exchange.<br />
+                    3. You will only see their exact location after they accept your request.<br />
+                    4. After the exchange, both of you will rate the experience.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex justify-end space-x-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
