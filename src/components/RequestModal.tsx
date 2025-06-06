@@ -114,3 +114,19 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, onClose, book, onSu
               >
                 Cancel
               </button>
+
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#C14953] text-white rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2"
+              >
+                Send Request
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RequestModal;
