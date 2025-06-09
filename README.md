@@ -36,3 +36,15 @@ BookCycle Pakistan is a community-driven platform where users can:
  - 👀 Exact location only shared after acceptance
 
  - � Safe meetup spot suggestions
+
+
+## 🛠️ Technology Stack
+### Frontend
+
+ - React.js with Tailwind CSS
+
+ - Responsive design (mobile-first)
+
+ - Bilingual support (English/Urdu)
+
+
