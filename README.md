@@ -68,5 +68,21 @@ BookCycle Pakistan is a community-driven platform where users can:
 
  - Telenor SMS API credentials
 
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/bookcycle-pakistan.git
+
+# Install dependencies
+cd bookcycle-pakistan
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Add your credentials in .env
+
+# Run the development server
+npm run dev
+```
 
 
