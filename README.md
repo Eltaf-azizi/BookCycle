@@ -47,4 +47,16 @@ BookCycle Pakistan is a community-driven platform where users can:
 
  - Bilingual support (English/Urdu)
 
+### Backend
+ - Node.js with Express
+
+ - PostgreSQL database
+
+ - Telenor SMS API for verification
+
+### Hosting
+ - Cloudflare (Pakistan-optimized)
+
+ - AWS S3 for image storage
+
 
