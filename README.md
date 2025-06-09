@@ -85,4 +85,14 @@ cp .env.example .env
 npm run dev
 ```
 
+## 📂 Project Structure
+```text
+bookcycle-pakistan/
+├── client/               # Frontend React app
+├── server/               # Backend Node.js server
+├── database/             # SQL schemas and migrations
+├── docs/                 # Documentation
+└── README.md             # This file
+```
+
 
