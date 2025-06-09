@@ -18,3 +18,21 @@ BookCycle Pakistan is a community-driven platform where users can:
  - 🏙️ City-based profiles (Karachi, Lahore, Islamabad, etc.)
 
  - ⭐ Rating system for trustworthy exchanges
+
+
+### Book Exchange
+ - 📸 Upload book photos with condition details
+
+ - 📍 Location-based book discovery
+
+ - 💬 In-app messaging for exchange coordination
+
+ - 🚚 Shipping or meetup options
+
+### Safety Features
+
+ - 🔒 Phone verification required
+
+ - 👀 Exact location only shared after acceptance
+
+ - � Safe meetup spot suggestions
