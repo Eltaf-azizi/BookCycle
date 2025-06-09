@@ -59,4 +59,14 @@ BookCycle Pakistan is a community-driven platform where users can:
 
  - AWS S3 for image storage
 
+## 🚀 Getting Started
+### Prerequisites
+
+ - Node.js v16+
+
+ - PostgreSQL
+
+ - Telenor SMS API credentials
+
+
 
