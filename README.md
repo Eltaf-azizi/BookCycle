@@ -108,4 +108,13 @@ We welcome contributions! Please follow these steps:
 
 5. Open a Pull Request
 
+## 🙏 Acknowledgments
+ - Inspired by community book-sharing initiatives
+
+ - Thanks to all future contributors
+
+ - Special thanks to Open Library API for book data
+
+<h3 align="center">Happy reading and sharing! 📖✨</h3>
+
 
