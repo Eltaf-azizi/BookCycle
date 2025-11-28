@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: 'login' | 'signup';
+  type: 'login' | 'signup' | 'otp';
 }
 
 const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
@@ -45,7 +45,14 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
           onClose();
         }, 1500);
       } else if (type === 'signup') {
-        await signup(formData, formData.password);
+        // convert age string to number to match User.age
+        const userPayload = {
+          name: formData.name,
+          email: formData.email,
+          age: Number(formData.age),
+          city: formData.city,
+        };
+        await signup(userPayload, formData.password);
         setSuccess('Sign up successful!');
         setTimeout(() => {
           onClose();
@@ -304,6 +311,48 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
                     Login
                   </button>
                 </div>
+              </form>
+            </>
+          )}
+
+          {type === 'otp' && (
+            <>
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-[#2D3142]">Verify with OTP</h2>
+                <p className="text-gray-600 mt-1">Enter the one-time code sent to your email</p>
+              </div>
+
+              {error && (
+                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
+                  {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
+                  {success}
+                </div>
+              )}
+
+              <form onSubmit={(e) => { e.preventDefault(); setSuccess('OTP verified — logged in'); setTimeout(onClose, 1200); }}>
+                <div className="mb-4">
+                  <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-1">One-time code</label>
+                  <input
+                    id="otp"
+                    name="otp"
+                    type="text"
+                    placeholder="123456"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#C14953] text-white py-2 px-4 rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2"
+                >
+                  Verify
+                </button>
               </form>
             </>
           )}

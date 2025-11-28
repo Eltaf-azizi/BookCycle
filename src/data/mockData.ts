@@ -105,7 +105,7 @@ export const MOCK_BOOKS: Book[] = [
     status: 'Available',
     createdAt: new Date('2023-12-15'),
   }
-];];
+];
 
 // Mock Book Requests
 export const MOCK_REQUESTS: BookRequest[] = [
