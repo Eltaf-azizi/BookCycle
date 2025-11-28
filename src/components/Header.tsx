@@ -5,9 +5,10 @@ import { useAuth } from '../contexts/AuthContext';
 interface HeaderProps {
   onLoginClick: () => void;
   onSignupClick: () => void;
+  onProfileClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
+const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick, onProfileClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -56,6 +57,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
                 <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
                   Messages
                 </a>
+                <button
+                  onClick={onProfileClick}
+                  className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors text-left"
+                >
+                  Profile
+                </button>
                 <div className="relative ml-3">
                   <div className="flex items-center space-x-3">
                     <div className="flex items-center space-x-2">
@@ -131,6 +138,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick }) => {
                 <a href="#" className="block px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]">
                   Messages
                 </a>
+                <button
+                  onClick={onProfileClick}
+                  className="block w-full text-left px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]"
+                >
+                  Profile
+                </button>
                 <div className="flex items-center justify-between px-4 py-2">
                   <div className="flex items-center space-x-3">
                     <div className={`h-8 w-8 rounded-full flex items-center justify-center text-white font-semibold ${getRandomColor(user?.name || '')}`}>

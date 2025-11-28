@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Search, MapPin } from 'lucide-react';
 import { pakistanCities } from '../types';
 

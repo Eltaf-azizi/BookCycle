@@ -7,6 +7,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   signup: (userData: Partial<User>, password: string) => Promise<void>;
+  updateProfile: (userData: Partial<User>) => void;
   logout: () => void;
 }
 
@@ -34,8 +35,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email,
         age: 25,
         city: 'Karachi',
-        rating: 5.0,
-        joinedAt: new Date(),
+        bio: 'Book lover and avid reader. Always excited to discover new stories and share knowledge through books.',
+        avatar: '',
+        phone: '',
+        university: '',
+        occupation: 'Student',
+        favoriteGenres: ['Fiction', 'Biography', 'History'],
+        readingGoals: 'Read 24 books this year and explore different genres from around the world.',
+        socialLinks: {
+          facebook: '',
+          instagram: '',
+          linkedin: '',
+          twitter: ''
+        },
+        totalBooksShared: 5,
+        totalBooksReceived: 3,
+        rating: 4.8,
+        totalReviews: 8,
+        verified: true,
+        lastActive: new Date(),
+        joinedAt: new Date('2023-06-15'),
+        preferences: {
+          notifications: true,
+          showEmail: false,
+          showPhone: false,
+          allowMessages: true
+        }
       };
       setUser(mockUser);
       localStorage.setItem('user', JSON.stringify(mockUser));
@@ -54,8 +79,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const newUser: User = {
         ...userData as User,
         id: Date.now().toString(),
+        avatar: '',
+        phone: '',
+        university: '',
+        occupation: '',
+        favoriteGenres: [],
+        readingGoals: '',
+        socialLinks: {
+          facebook: '',
+          instagram: '',
+          linkedin: '',
+          twitter: ''
+        },
+        totalBooksShared: 0,
+        totalBooksReceived: 0,
         rating: 5.0,
+        totalReviews: 0,
+        verified: false,
+        lastActive: new Date(),
         joinedAt: new Date(),
+        preferences: {
+          notifications: true,
+          showEmail: false,
+          showPhone: false,
+          allowMessages: true
+        }
       };
       setUser(newUser);
       localStorage.setItem('user', JSON.stringify(newUser));
@@ -64,6 +112,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw error;
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const updateProfile = (userData: Partial<User>) => {
+    if (user) {
+      const updatedUser = { ...user, ...userData };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
     }
   };
 
@@ -80,6 +136,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         login,
         signup,
+        updateProfile,
         logout,
       }}
     >

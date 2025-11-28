@@ -5,8 +5,31 @@ export interface User {
   age: number;
   city: string;
   bio?: string;
+  avatar?: string;
+  phone?: string;
+  university?: string;
+  occupation?: string;
+  favoriteGenres?: string[];
+  readingGoals?: string;
+  socialLinks?: {
+    facebook?: string;
+    instagram?: string;
+    linkedin?: string;
+    twitter?: string;
+  };
+  totalBooksShared: number;
+  totalBooksReceived: number;
   rating: number;
+  totalReviews: number;
+  verified: boolean;
+  lastActive: Date;
   joinedAt: Date;
+  preferences: {
+    notifications: boolean;
+    showEmail: boolean;
+    showPhone: boolean;
+    allowMessages: boolean;
+  };
 }
 
 export interface Book {
