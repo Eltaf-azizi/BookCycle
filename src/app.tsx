@@ -25,6 +25,49 @@ function AppContent() {
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([
+    {
+      id: '1',
+      userId: '1',
+      type: 'book_request',
+      title: 'New Book Request',
+      message: 'Ahmed Raza wants to exchange "A Brief History of Time" with you.',
+      createdAt: new Date('2023-12-20T10:30:00'),
+      read: false,
+      actionUrl: '/requests/1'
+    },
+    {
+      id: '2',
+      userId: '1',
+      type: 'message',
+      title: 'New Message',
+      message: 'Fatima Khan sent you a message about book exchange.',
+      createdAt: new Date('2023-12-19T15:45:00'),
+      read: false,
+      actionUrl: '/messages/2'
+    },
+    {
+      id: '3',
+      userId: '1',
+      type: 'achievement',
+      title: 'Achievement Unlocked!',
+      message: 'Congratulations! You earned the "Quick Responder" badge.',
+      createdAt: new Date('2023-12-18T09:20:00'),
+      read: true,
+    },
+    {
+      id: '4',
+      userId: '1',
+      type: 'request_accepted',
+      title: 'Request Accepted',
+      message: 'Saad Ali accepted your request for "The Kite Runner".',
+      createdAt: new Date('2023-12-17T14:15:00'),
+      read: true,
+      actionUrl: '/exchanges/4'
+    }
+  ]);
   const { user, isAuthenticated, updateProfile } = useAuth();
   const [searchParams, setSearchParams] = useState({ query: '', city: '' });
 
@@ -51,6 +94,43 @@ function AppContent() {
 
   const handleSearch = (params: { query: string; city: string }) => {
     setSearchParams(params);
+  };
+
+  const handleAdvancedSearch = (filters: any) => {
+    // Combine advanced filters with basic search
+    const combinedParams = {
+      query: filters.query || '',
+      city: filters.city || '',
+      genre: filters.genre || '',
+      condition: filters.condition || '',
+      availability: filters.availability || 'Available',
+      userRating: filters.userRating || 0,
+      responseTime: filters.responseTime || '',
+      verifiedOnly: filters.verifiedOnly || false,
+      distance: filters.distance || 50,
+    };
+    setSearchParams(combinedParams);
+    setShowAdvancedSearch(false);
+  };
+
+  const handleMarkNotificationAsRead = (id: string) => {
+    setNotifications(prev => 
+      prev.map(notif => 
+        notif.id === id ? { ...notif, read: true } : notif
+      )
+    );
+  };
+
+  const handleMarkAllNotificationsAsRead = () => {
+    setNotifications(prev => 
+      prev.map(notif => ({ ...notif, read: true }))
+    );
+  };
+
+  const handleDeleteNotification = (id: string) => {
+    setNotifications(prev => 
+      prev.filter(notif => notif.id !== id)
+    );
   };
 
   const handleAddBook = (bookData: any) => {
