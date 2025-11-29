@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, MapPin, Star, Book, Users, Clock, Award } from 'lucide-react';
-import { Book as BookType, User } from '../types';
+import { Search, Filter } from 'lucide-react';
 import { pakistanCities } from '../types';
 
 interface AdvancedSearchProps {
@@ -36,7 +35,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, availableGenr
     distance: 50,
   });
 
-  const handleFilterChange = (key: keyof SearchFilters, value: any) => {
+  const handleFilterChange = (key: keyof SearchFilters, value: string | number | boolean) => {
     setFilters(prev => ({
       ...prev,
       [key]: value

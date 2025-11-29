@@ -3,7 +3,7 @@ import { BookOpen, ChevronDown } from 'lucide-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
-import AdvancedSearch from './components/AdvancedSearch';
+import AdvancedSearch, { SearchFilters } from './components/AdvancedSearch';
 import BookGrid from './components/BookGrid';
 import AuthForms from './components/AuthForms';
 import AddBookButton from './components/AddBookButton';
@@ -11,10 +11,11 @@ import RequestModal from './components/RequestModal';
 import UserProfile from './components/UserProfile';
 import ProfileEditModal from './components/ProfileEditModal';
 import CommunityLeaderboard from './components/CommunityLeaderboard';
-import NotificationSystem from './components/NotificationSystem';
+import UserRecommendations from './components/UserRecommendations';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { Book, BookRequest, Notification } from './types';
-import { MOCK_BOOKS } from './data/mockData';
+import { Book, BookRequest, Notification, Message, User } from './types';
+import { MOCK_BOOKS, MOCK_MESSAGES } from './data/mockData';
+import MessagesModal from './components/MessagesModal';
 
 function AppContent() {
   const [books, setBooks] = useState<Book[]>(MOCK_BOOKS);
@@ -27,6 +28,7 @@ function AppContent() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showMessages, setShowMessages] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: '1',
@@ -69,7 +71,8 @@ function AppContent() {
     }
   ]);
   const { user, isAuthenticated, updateProfile } = useAuth();
-  const [searchParams, setSearchParams] = useState({ query: '', city: '' });
+  const [messages, setMessages] = useState<Message[]>(MOCK_MESSAGES);
+  const [searchParams, setSearchParams] = useState<Partial<SearchFilters>>({ query: '', city: '' });
 
   useEffect(() => {
     let filtered = [...books];
@@ -84,19 +87,33 @@ function AppContent() {
       );
     }
 
-    // Filter by city
-    if (searchParams.city) {
-      filtered = filtered.filter(book => book.city.toLowerCase() === searchParams.city.toLowerCase());
-    }
+      // Filter by city
+      if (searchParams.city) {
+        filtered = filtered.filter(book => book.city.toLowerCase() === (searchParams.city || '').toLowerCase());
+      }
 
-    setFilteredBooks(filtered);
+      // Additional advanced filters
+      if (searchParams.genre) {
+        filtered = filtered.filter(book => book.genre.toLowerCase() === (searchParams.genre || '').toLowerCase());
+      }
+
+      if (searchParams.condition) {
+        filtered = filtered.filter(book => book.condition.toLowerCase() === (searchParams.condition || '').toLowerCase());
+      }
+
+      if (searchParams.availability) {
+        filtered = filtered.filter(book => book.status.toLowerCase() === (searchParams.availability || '').toLowerCase());
+      }
+
+      setFilteredBooks(filtered);
   }, [books, searchParams]);
 
-  const handleSearch = (params: { query: string; city: string }) => {
-    setSearchParams(params);
+    const handleSearch = (params: Partial<SearchFilters>) => {
+      // Merge new params into existing search params
+      setSearchParams(prev => ({ ...prev, ...params }));
   };
 
-  const handleAdvancedSearch = (filters: any) => {
+  const handleAdvancedSearch = (filters: Partial<SearchFilters>) => {
     // Combine advanced filters with basic search
     const combinedParams = {
       query: filters.query || '',
@@ -113,6 +130,7 @@ function AppContent() {
     setShowAdvancedSearch(false);
   };
 
+  
   const handleMarkNotificationAsRead = (id: string) => {
     setNotifications(prev => 
       prev.map(notif => 
@@ -133,7 +151,7 @@ function AppContent() {
     );
   };
 
-  const handleAddBook = (bookData: any) => {
+  const handleAddBook = (bookData: Omit<Book, 'id' | 'ownerId' | 'ownerName' | 'createdAt'>) => {
     if (!isAuthenticated) {
       setAuthType('login');
       setIsAuthModalOpen(true);
@@ -143,8 +161,10 @@ function AppContent() {
     // In a real app, this would make an API call
     const newBook: Book = {
       ...bookData,
+      id: Date.now().toString(),
       ownerId: user?.id || '',
       ownerName: user?.name || '',
+      createdAt: new Date(),
     };
 
     setBooks(prev => [newBook, ...prev]);
@@ -165,8 +185,7 @@ function AppContent() {
   };
 
   const handleSubmitRequest = (request: Partial<BookRequest>) => {
-    // In a real app, this would make an API call
-    console.log('Book request submitted:', request);
+    // Book request submitted successfully
 
     // Update the book status to Reserved
     setBooks(prev =>
@@ -186,7 +205,7 @@ function AppContent() {
     setIsEditProfileOpen(true);
   };
 
-  const handleSaveProfile = (userData: any) => {
+  const handleSaveProfile = (userData: Partial<User>) => {
     updateProfile(userData);
   };
 
@@ -196,9 +215,27 @@ function AppContent() {
       setIsAuthModalOpen(true);
       return;
     }
-    // In a real app, this would open a messaging interface
-    alert('Messaging functionality would be implemented here');
+    // In a real app, this would open a messaging interface - open messages modal instead
+    setShowMessages(true);
   };
+
+  const handleSendMessage = (toUserId: string, content: string) => {
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      senderId: user?.id || 'me',
+      receiverId: toUserId,
+      content,
+      type: 'text',
+      createdAt: new Date(),
+      read: false,
+    };
+    setMessages(prev => [...prev, newMessage]);
+  };
+
+  const handleMarkMessageAsRead = (id: string) => {
+    setMessages(prev => prev.map(m => m.id === id ? { ...m, read: true } : m));
+  };
+
 
   // Filter books by user for profile view
   const userBooks = books.filter(book => book.ownerId === user?.id);
@@ -217,6 +254,11 @@ function AppContent() {
             setIsAuthModalOpen(true);
           }}
           onProfileClick={() => setShowProfile(false)}
+          notifications={notifications}
+          onMarkAsRead={handleMarkNotificationAsRead}
+          onMarkAllAsRead={handleMarkAllNotificationsAsRead}
+          onDeleteNotification={handleDeleteNotification}
+          onMessagesClick={() => setShowMessages(true)}
         />
         
         <UserProfile
@@ -235,6 +277,14 @@ function AppContent() {
         />
         
         <Footer />
+        <MessagesModal
+          isOpen={showMessages}
+          onClose={() => setShowMessages(false)}
+          messages={messages}
+          currentUser={user}
+          onSendMessage={handleSendMessage}
+          onMarkAsRead={handleMarkMessageAsRead}
+        />
       </div>
     );
   }
@@ -251,6 +301,11 @@ function AppContent() {
           setIsAuthModalOpen(true);
         }}
         onProfileClick={handleShowProfile}
+        notifications={notifications}
+        onMarkAsRead={handleMarkNotificationAsRead}
+        onMarkAllAsRead={handleMarkAllNotificationsAsRead}
+        onDeleteNotification={handleDeleteNotification}
+        onMessagesClick={() => setShowMessages(true)}
       />
 
       <main className="flex-grow pt-16">
@@ -269,7 +324,17 @@ function AppContent() {
             </div>
 
 
-            <SearchBar onSearch={handleSearch} />
+            <div className="flex flex-col items-center gap-3">
+              <SearchBar onSearch={handleSearch} />
+              <div className="mt-2 flex items-center space-x-3">
+                <button
+                  onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+                  className="text-sm text-[#2D3142] border border-[#6C9A8B] px-3 py-1 rounded-md hover:bg-[#6C9A8B] hover:text-white transition-colors"
+                >
+                  {showAdvancedSearch ? 'Hide Advanced Search' : 'Advanced Search'}
+                </button>
+              </div>
+            </div>
 
             <div className="mt-12 text-center">
               <p className="text-gray-300 mb-3">
@@ -294,6 +359,16 @@ function AppContent() {
           </div>
         </section>
 
+        {/* Advanced Search */}
+        {showAdvancedSearch && (
+          <section className="py-8 md:py-8 px-4 md:px-6 max-w-7xl mx-auto">
+            <AdvancedSearch
+              availableGenres={[...new Set(books.map(b => b.genre))]}
+              onSearch={handleAdvancedSearch}
+            />
+          </section>
+        )}
+
         {/* Books Grid Section */}
         <section className="py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -315,7 +390,37 @@ function AppContent() {
             </div>
                         
             {filteredBooks.length > 0 ? (
-              <BookGrid books={filteredBooks} onRequestBook={handleRequestBook} />
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2">
+                  <BookGrid books={filteredBooks} onRequestBook={handleRequestBook} />
+                </div>
+
+                <aside className="lg:col-span-1 space-y-6">
+                  {/* Recommendations */}
+                  {user && (
+                    <UserRecommendations currentUser={user} allUsers={[]} />
+                  )}
+
+                  {/* Leaderboard */}
+                  <div className="bg-white rounded-lg shadow-md p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-sm font-semibold">Community</h3>
+                      <button
+                        onClick={() => setShowLeaderboard(!showLeaderboard)}
+                        className="text-xs text-gray-500 hover:text-gray-700"
+                      >
+                        {showLeaderboard ? 'Hide' : 'Show'}
+                      </button>
+                    </div>
+
+                    {showLeaderboard ? (
+                      <CommunityLeaderboard currentUserId={user?.id} />
+                    ) : (
+                      <div className="text-sm text-gray-500">Leaderboard hidden — click Show to view community leaders</div>
+                    )}
+                  </div>
+                </aside>
+              </div>
             ) : (
               <div className="text-center py-12">
                 <div className="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto">
@@ -415,6 +520,15 @@ function AppContent() {
         onClose={() => setIsRequestModalOpen(false)}
         book={selectedBook}
         onSubmit={handleSubmitRequest}
+      />
+
+      <MessagesModal
+        isOpen={showMessages}
+        onClose={() => setShowMessages(false)}
+        messages={messages}
+        currentUser={user}
+        onSendMessage={handleSendMessage}
+        onMarkAsRead={handleMarkMessageAsRead}
       />
       
       {/* Profile Edit Modal */}

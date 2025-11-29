@@ -21,7 +21,7 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, onClose, book, onSu
     
 
     if (!user) {
-      alert('You must be logged in to request a book');
+      // This should be handled by the parent component
       return;
     }
     

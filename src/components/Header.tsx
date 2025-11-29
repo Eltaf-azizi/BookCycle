@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { BookOpen, Menu, X, LogOut } from 'lucide-react';
+import NotificationSystem from './NotificationSystem';
+import { Notification } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 
 interface HeaderProps {
   onLoginClick: () => void;
   onSignupClick: () => void;
   onProfileClick?: () => void;
+  onMessagesClick?: () => void;
+  notifications?: Notification[];
+  onMarkAsRead?: (id: string) => void;
+  onMarkAllAsRead?: () => void;
+  onDeleteNotification?: (id: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick, onProfileClick }) => {
+const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick, onProfileClick, onMessagesClick, notifications, onMarkAsRead, onMarkAllAsRead, onDeleteNotification }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -51,12 +58,25 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick, onProfileC
             
             {isAuthenticated ? (
               <>
+                {notifications && (
+                  <div className="mr-2">
+                    <NotificationSystem
+                      notifications={notifications}
+                      onMarkAsRead={onMarkAsRead || (() => {})}
+                      onMarkAllAsRead={onMarkAllAsRead || (() => {})}
+                      onDeleteNotification={onDeleteNotification || (() => {})}
+                    />
+                  </div>
+                )}
                 <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
                   My Books
                 </a>
-                <a href="#" className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                <button
+                  onClick={() => onMessagesClick && onMessagesClick()}
+                  className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
                   Messages
-                </a>
+                </button>
                 <button
                   onClick={onProfileClick}
                   className="text-[#2D3142] hover:text-[#C14953] px-3 py-2 rounded-md text-sm font-medium transition-colors text-left"
@@ -130,8 +150,19 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onSignupClick, onProfileC
               How It Works
             </a>
             
-            {isAuthenticated ? (
+                {isAuthenticated ? (
               <>
+                  {/* Mobile notifications */}
+                  {notifications && (
+                    <div className="px-4 py-3">
+                      <NotificationSystem
+                        notifications={notifications}
+                        onMarkAsRead={onMarkAsRead || (() => {})}
+                        onMarkAllAsRead={onMarkAllAsRead || (() => {})}
+                        onDeleteNotification={onDeleteNotification || (() => {})}
+                      />
+                    </div>
+                  )}
                 <a href="#" className="block px-4 py-2 text-base font-medium text-[#2D3142] hover:bg-[#F7F3E3] hover:text-[#C14953]">
                   My Books
                 </a>

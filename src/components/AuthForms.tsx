@@ -60,7 +60,6 @@ const AuthForms: React.FC<AuthModalProps> = ({ isOpen, onClose, type }) => {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error(err);
     }
   };
 
