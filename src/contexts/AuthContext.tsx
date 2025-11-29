@@ -60,6 +60,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           showEmail: false,
           showPhone: false,
           allowMessages: true
+        },
+        exchangePreferences: {
+          preferredMeetingAreas: [],
+          preferredMeetingTimes: [],
+          transportationOptions: [],
+          exchangeMethods: ['In-Person'],
+          responseTime: 'Within 24 hours',
+          availabilitySchedule: ''
+        },
+        trustAndSafety: {
+          identityVerified: false,
+          phoneVerified: false,
+          emailVerified: true,
+          safetyRating: 5.0,
+          safetyReviews: 0
+        },
+        languages: ['English', 'Urdu'],
+        timezone: 'Asia/Karachi',
+        profileCompleteness: 75,
+        achievements: {
+          firstBookShared: true,
+          helpfulReviewer: false,
+          quickResponder: true,
+          trustedTrader: false,
+          genreExplorer: false,
+          communityHelper: false,
+        },
+        badges: ['Early Adopter', 'Helpful Member'],
+        location: {
+          latitude: 24.8607,
+          longitude: 67.0011,
+          preferredSpots: ['DHA Phase 5', 'Clifton Beach', 'Dolmen Mall'],
+        },
+        stats: {
+          booksExchanged: 8,
+          successfulTrades: 7,
+          averageResponseTime: 4.5,
+          communityRank: 23,
         }
       };
       setUser(mockUser);
@@ -103,6 +141,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           showEmail: false,
           showPhone: false,
           allowMessages: true
+        },
+        exchangePreferences: {
+          preferredMeetingAreas: [],
+          preferredMeetingTimes: [],
+          transportationOptions: [],
+          exchangeMethods: ['In-Person'],
+          responseTime: 'Within 24 hours',
+          availabilitySchedule: ''
+        },
+        trustAndSafety: {
+          identityVerified: false,
+          phoneVerified: false,
+          emailVerified: true,
+          safetyRating: 5.0,
+          safetyReviews: 0
+        },
+        languages: ['English', 'Urdu'],
+        timezone: 'Asia/Karachi',
+        profileCompleteness: 75,
+        achievements: {
+          firstBookShared: true,
+          helpfulReviewer: false,
+          quickResponder: true,
+          trustedTrader: false,
+          genreExplorer: false,
+          communityHelper: false,
+        },
+        badges: ['Early Adopter', 'Helpful Member'],
+        location: {
+          latitude: 24.8607,
+          longitude: 67.0011,
+          preferredSpots: ['DHA Phase 5', 'Clifton Beach', 'Dolmen Mall'],
+        },
+        stats: {
+          booksExchanged: 8,
+          successfulTrades: 7,
+          averageResponseTime: 4.5,
+          communityRank: 23,
         }
       };
       setUser(newUser);

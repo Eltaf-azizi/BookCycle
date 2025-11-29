@@ -140,6 +140,7 @@ export const MOCK_MESSAGES: Message[] = [
     content: 'Hi Ahmed, I\'m interested in "A Brief History of Time". When would be a good time to meet?',
     createdAt: new Date('2023-12-11T10:30:00'),
     read: true,
+    type: 'text',
   },
   {
     id: '2',
@@ -148,6 +149,7 @@ export const MOCK_MESSAGES: Message[] = [
     content: 'Hello Ali! I can meet you this Saturday at Packages Mall around 3 PM. Does that work for you?',
     createdAt: new Date('2023-12-11T11:45:00'),
     read: true,
+    type: 'text',
   },
   {
     id: '3',
@@ -156,6 +158,7 @@ export const MOCK_MESSAGES: Message[] = [
     content: 'Saturday at 3 PM works perfectly. I\'ll see you at the main entrance of Packages Mall.',
     createdAt: new Date('2023-12-11T12:15:00'),
     read: true,
+    type: 'text',
   },
   {
     id: '4',
@@ -164,5 +167,6 @@ export const MOCK_MESSAGES: Message[] = [
     content: 'Great! I\'ll be wearing a blue jacket so you can recognize me. Looking forward to meeting you.',
     createdAt: new Date('2023-12-11T12:30:00'),
     read: false,
+    type: 'text',
   }
 ];

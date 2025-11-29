@@ -33,11 +33,31 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onClose, us
       showEmail: user.preferences.showEmail,
       showPhone: user.preferences.showPhone,
       allowMessages: user.preferences.allowMessages,
-    }
+    },
+    exchangePreferences: {
+      preferredMeetingAreas: user.exchangePreferences?.preferredMeetingAreas || [],
+      preferredMeetingTimes: user.exchangePreferences?.preferredMeetingTimes || [],
+      transportationOptions: user.exchangePreferences?.transportationOptions || [],
+      exchangeMethods: user.exchangePreferences?.exchangeMethods || ['In-Person'],
+      responseTime: user.exchangePreferences?.responseTime || 'Within 24 hours',
+      availabilitySchedule: user.exchangePreferences?.availabilitySchedule || '',
+    },
+    trustAndSafety: {
+      identityVerified: user.trustAndSafety?.identityVerified || false,
+      phoneVerified: user.trustAndSafety?.phoneVerified || false,
+      emailVerified: user.trustAndSafety?.emailVerified || true,
+      emergencyContact: user.trustAndSafety?.emergencyContact || {
+        name: '',
+        phone: '',
+        relationship: '',
+      },
+    },
+    languages: user.languages || ['English'],
+    timezone: user.timezone || 'Asia/Karachi',
   });
 
   const [avatar, setAvatar] = useState<string>(user.avatar || '');
-  const [activeTab, setActiveTab] = useState<'personal' | 'social' | 'preferences'>('personal');
+  const [activeTab, setActiveTab] = useState<'personal' | 'social' | 'exchange' | 'safety' | 'preferences'>('personal');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -126,10 +146,10 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onClose, us
 
         {/* Tabs */}
         <div className="border-b">
-          <nav className="flex">
+          <nav className="flex flex-wrap">
             <button
               onClick={() => setActiveTab('personal')}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-4 py-3 text-sm font-medium ${
                 activeTab === 'personal'
                   ? 'border-b-2 border-[#C14953] text-[#C14953]'
                   : 'text-gray-500 hover:text-gray-700'
@@ -139,7 +159,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onClose, us
             </button>
             <button
               onClick={() => setActiveTab('social')}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-4 py-3 text-sm font-medium ${
                 activeTab === 'social'
                   ? 'border-b-2 border-[#C14953] text-[#C14953]'
                   : 'text-gray-500 hover:text-gray-700'
@@ -148,8 +168,28 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onClose, us
               Social & Reading
             </button>
             <button
+              onClick={() => setActiveTab('exchange')}
+              className={`px-4 py-3 text-sm font-medium ${
+                activeTab === 'exchange'
+                  ? 'border-b-2 border-[#C14953] text-[#C14953]'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Exchange Prefs
+            </button>
+            <button
+              onClick={() => setActiveTab('safety')}
+              className={`px-4 py-3 text-sm font-medium ${
+                activeTab === 'safety'
+                  ? 'border-b-2 border-[#C14953] text-[#C14953]'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Trust & Safety
+            </button>
+            <button
               onClick={() => setActiveTab('preferences')}
-              className={`px-6 py-3 text-sm font-medium ${
+              className={`px-4 py-3 text-sm font-medium ${
                 activeTab === 'preferences'
                   ? 'border-b-2 border-[#C14953] text-[#C14953]'
                   : 'text-gray-500 hover:text-gray-700'
@@ -412,6 +452,338 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onClose, us
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
                       placeholder="https://twitter.com/username"
                     />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'exchange' && (
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Preferred Meeting Areas
+                </label>
+                <input
+                  type="text"
+                  name="exchangePreferences.preferredMeetingAreas"
+                  value={formData.exchangePreferences.preferredMeetingAreas.join(', ')}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    exchangePreferences: {
+                      ...prev.exchangePreferences,
+                      preferredMeetingAreas: e.target.value.split(',').map(area => area.trim()).filter(area => area)
+                    }
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                  placeholder="e.g., DHA, Clifton, Gulshan (separate with commas)"
+                />
+                <p className="text-xs text-gray-500 mt-1">List specific areas in your city where you prefer to meet</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Preferred Meeting Times
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {['Morning (9AM-12PM)', 'Afternoon (12PM-5PM)', 'Evening (5PM-8PM)', 'Night (8PM-10PM)'].map(time => (
+                    <label key={time} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.exchangePreferences.preferredMeetingTimes.includes(time)}
+                        onChange={() => {
+                          const times = formData.exchangePreferences.preferredMeetingTimes.includes(time)
+                            ? formData.exchangePreferences.preferredMeetingTimes.filter(t => t !== time)
+                            : [...formData.exchangePreferences.preferredMeetingTimes, time];
+                          setFormData(prev => ({
+                            ...prev,
+                            exchangePreferences: {
+                              ...prev.exchangePreferences,
+                              preferredMeetingTimes: times
+                            }
+                          }));
+                        }}
+                        className="mr-2 h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-700">{time}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Transportation Options
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {['Walking', 'Car/Bike', 'Public Transport', 'Rideshare'].map(transport => (
+                    <label key={transport} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.exchangePreferences.transportationOptions.includes(transport)}
+                        onChange={() => {
+                          const options = formData.exchangePreferences.transportationOptions.includes(transport)
+                            ? formData.exchangePreferences.transportationOptions.filter(t => t !== transport)
+                            : [...formData.exchangePreferences.transportationOptions, transport];
+                          setFormData(prev => ({
+                            ...prev,
+                            exchangePreferences: {
+                              ...prev.exchangePreferences,
+                              transportationOptions: options
+                            }
+                          }));
+                        }}
+                        className="mr-2 h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-700">{transport}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Exchange Methods
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {['In-Person', 'Shipping', 'Drop-off Point'].map(method => (
+                    <label key={method} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.exchangePreferences.exchangeMethods.includes(method)}
+                        onChange={() => {
+                          const methods = formData.exchangePreferences.exchangeMethods.includes(method)
+                            ? formData.exchangePreferences.exchangeMethods.filter(m => m !== method)
+                            : [...formData.exchangePreferences.exchangeMethods, method];
+                          setFormData(prev => ({
+                            ...prev,
+                            exchangePreferences: {
+                              ...prev.exchangePreferences,
+                              exchangeMethods: methods
+                            }
+                          }));
+                        }}
+                        className="mr-2 h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-700">{method}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Response Time
+                </label>
+                <select
+                  name="exchangePreferences.responseTime"
+                  value={formData.exchangePreferences.responseTime}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    exchangePreferences: {
+                      ...prev.exchangePreferences,
+                      responseTime: e.target.value
+                    }
+                  }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                >
+                  <option value="Within 1 hour">Within 1 hour</option>
+                  <option value="Within 6 hours">Within 6 hours</option>
+                  <option value="Within 24 hours">Within 24 hours</option>
+                  <option value="Within 2 days">Within 2 days</option>
+                  <option value="Within 1 week">Within 1 week</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Availability Schedule
+                </label>
+                <textarea
+                  name="exchangePreferences.availabilitySchedule"
+                  rows={3}
+                  value={formData.exchangePreferences.availabilitySchedule}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                  placeholder="e.g., Available weekends, weekdays after 6PM, etc."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Languages
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {['English', 'Urdu', 'Arabic', 'French', 'German', 'Chinese'].map(lang => (
+                    <label key={lang} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.languages.includes(lang)}
+                        onChange={() => {
+                          const languages = formData.languages.includes(lang)
+                            ? formData.languages.filter(l => l !== lang)
+                            : [...formData.languages, lang];
+                          setFormData(prev => ({ ...prev, languages }));
+                        }}
+                        className="mr-2 h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-700">{lang}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'safety' && (
+            <div className="space-y-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 className="text-lg font-medium text-blue-900 mb-2">Trust & Safety Center</h4>
+                <p className="text-sm text-blue-700">
+                  Help build trust in the community by verifying your information and adding safety details.
+                </p>
+              </div>
+
+              <div>
+                <h5 className="text-md font-medium text-[#2D3142] mb-3">Verification Status</h5>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                    <div className="flex items-center">
+                      <div className={`w-3 h-3 rounded-full mr-3 ${formData.trustAndSafety.emailVerified ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <span className="text-sm text-gray-700">Email Verified</span>
+                    </div>
+                    <span className="text-xs text-gray-500">
+                      {formData.trustAndSafety.emailVerified ? '✓ Verified' : 'Not verified'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                    <div className="flex items-center">
+                      <div className={`w-3 h-3 rounded-full mr-3 ${formData.trustAndSafety.phoneVerified ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <span className="text-sm text-gray-700">Phone Verified</span>
+                    </div>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="trustAndSafety.phoneVerified"
+                        checked={formData.trustAndSafety.phoneVerified}
+                        onChange={(e) => setFormData(prev => ({
+                          ...prev,
+                          trustAndSafety: {
+                            ...prev.trustAndSafety,
+                            phoneVerified: e.target.checked
+                          }
+                        }))}
+                        className="mr-2 h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                      />
+                      <span className="text-xs text-gray-500">Verify now</span>
+                    </label>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                    <div className="flex items-center">
+                      <div className={`w-3 h-3 rounded-full mr-3 ${formData.trustAndSafety.identityVerified ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <span className="text-sm text-gray-700">Identity Verified</span>
+                    </div>
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="trustAndSafety.identityVerified"
+                        checked={formData.trustAndSafety.identityVerified}
+                        onChange={(e) => setFormData(prev => ({
+                          ...prev,
+                          trustAndSafety: {
+                            ...prev.trustAndSafety,
+                            identityVerified: e.target.checked
+                          }
+                        }))}
+                        className="mr-2 h-4 w-4 text-[#C14953] focus:ring-[#C14953] border-gray-300 rounded"
+                      />
+                      <span className="text-xs text-gray-500">Verify now</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h5 className="text-md font-medium text-[#2D3142] mb-3">Emergency Contact</h5>
+                <p className="text-sm text-gray-600 mb-3">
+                  Add an emergency contact for additional safety during in-person exchanges.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Contact Name
+                    </label>
+                    <input
+                      type="text"
+                      name="trustAndSafety.emergencyContact.name"
+                      value={formData.trustAndSafety.emergencyContact.name}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        trustAndSafety: {
+                          ...prev.trustAndSafety,
+                          emergencyContact: {
+                            ...prev.trustAndSafety.emergencyContact,
+                            name: e.target.value
+                          }
+                        }
+                      }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      placeholder="Full name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Contact Phone
+                    </label>
+                    <input
+                      type="tel"
+                      name="trustAndSafety.emergencyContact.phone"
+                      value={formData.trustAndSafety.emergencyContact.phone}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        trustAndSafety: {
+                          ...prev.trustAndSafety,
+                          emergencyContact: {
+                            ...prev.trustAndSafety.emergencyContact,
+                            phone: e.target.value
+                          }
+                        }
+                      }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                      placeholder="+92 XXX XXXXXXX"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Relationship
+                    </label>
+                    <select
+                      name="trustAndSafety.emergencyContact.relationship"
+                      value={formData.trustAndSafety.emergencyContact.relationship}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        trustAndSafety: {
+                          ...prev.trustAndSafety,
+                          emergencyContact: {
+                            ...prev.trustAndSafety.emergencyContact,
+                            relationship: e.target.value
+                          }
+                        }
+                      }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                    >
+                      <option value="">Select relationship</option>
+                      <option value="Parent">Parent</option>
+                      <option value="Sibling">Sibling</option>
+                      <option value="Spouse">Spouse</option>
+                      <option value="Friend">Friend</option>
+                      <option value="Roommate">Roommate</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
                 </div>
               </div>

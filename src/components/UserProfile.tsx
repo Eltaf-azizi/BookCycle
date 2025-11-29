@@ -20,6 +20,8 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { User as UserType, Book as BookType } from '../types';
+import ProfileCompleteness from './ProfileCompleteness';
+import UserRecommendations from './UserRecommendations';
 
 interface UserProfileProps {
   user: UserType;
@@ -308,10 +310,134 @@ const UserProfile: React.FC<UserProfileProps> = ({
                   <p className="text-gray-700">{user.readingGoals}</p>
                 </div>
               )}
+
+              {/* Exchange Preferences */}
+              {user.exchangePreferences && (
+                <div className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="text-lg font-semibold text-[#2D3142] mb-4 flex items-center">
+                    <MapPin className="h-5 w-5 mr-2" />
+                    Exchange Preferences
+                  </h3>
+                  <div className="space-y-4">
+                    {user.exchangePreferences.preferredMeetingAreas && user.exchangePreferences.preferredMeetingAreas.length > 0 && (
+                      <div>
+                        <p className="text-sm text-gray-500 mb-2">Preferred Meeting Areas</p>
+                        <div className="flex flex-wrap gap-2">
+                          {user.exchangePreferences.preferredMeetingAreas.map((area, index) => (
+                            <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
+                              {area}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {user.exchangePreferences.preferredMeetingTimes && user.exchangePreferences.preferredMeetingTimes.length > 0 && (
+                      <div>
+                        <p className="text-sm text-gray-500 mb-2">Preferred Meeting Times</p>
+                        <div className="flex flex-wrap gap-2">
+                          {user.exchangePreferences.preferredMeetingTimes.map((time, index) => (
+                            <span key={index} className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
+                              {time}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {user.exchangePreferences.responseTime && (
+                      <div>
+                        <p className="text-sm text-gray-500 mb-1">Response Time</p>
+                        <p className="text-gray-900">{user.exchangePreferences.responseTime}</p>
+                      </div>
+                    )}
+
+                    {user.languages && user.languages.length > 0 && (
+                      <div>
+                        <p className="text-sm text-gray-500 mb-2">Languages</p>
+                        <div className="flex flex-wrap gap-2">
+                          {user.languages.map((lang, index) => (
+                            <span key={index} className="px-2 py-1 bg-purple-100 text-purple-800 rounded text-sm">
+                              {lang}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Trust & Safety */}
+              {user.trustAndSafety && (
+                <div className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="text-lg font-semibold text-[#2D3142] mb-4 flex items-center">
+                    <CheckCircle className="h-5 w-5 mr-2" />
+                    Trust & Safety
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-700">Email Verified</span>
+                      <div className="flex items-center">
+                        <div className={`w-2 h-2 rounded-full mr-2 ${user.trustAndSafety.emailVerified ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                        <span className="text-xs text-gray-500">
+                          {user.trustAndSafety.emailVerified ? 'Verified' : 'Not verified'}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-700">Phone Verified</span>
+                      <div className="flex items-center">
+                        <div className={`w-2 h-2 rounded-full mr-2 ${user.trustAndSafety.phoneVerified ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                        <span className="text-xs text-gray-500">
+                          {user.trustAndSafety.phoneVerified ? 'Verified' : 'Not verified'}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-700">Identity Verified</span>
+                      <div className="flex items-center">
+                        <div className={`w-2 h-2 rounded-full mr-2 ${user.trustAndSafety.identityVerified ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                        <span className="text-xs text-gray-500">
+                          {user.trustAndSafety.identityVerified ? 'Verified' : 'Not verified'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {user.trustAndSafety.safetyRating && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Safety Rating</span>
+                        <div className="flex items-center">
+                          <Star className="h-4 w-4 text-yellow-500 mr-1" />
+                          <span className="text-sm text-gray-900">{user.trustAndSafety.safetyRating.toFixed(1)}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
             <div className="space-y-6">
+              {/* Profile Completeness - Only for own profile */}
+              {isOwnProfile && (
+                <ProfileCompleteness 
+                  user={user} 
+                  onEditProfile={onEditProfile}
+                />
+              )}
+
+              {/* User Recommendations - Only for own profile */}
+              {isOwnProfile && (
+                <UserRecommendations 
+                  currentUser={user} 
+                  allUsers={[]}
+                />
+              )}
+
               {/* Contact Information */}
               {!isOwnProfile && (
                 <div className="bg-white rounded-lg shadow-md p-6">

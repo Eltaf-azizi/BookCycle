@@ -30,6 +30,52 @@ export interface User {
     showPhone: boolean;
     allowMessages: boolean;
   };
+  // Enhanced fields for better book exchanges
+  exchangePreferences: {
+    preferredMeetingAreas?: string[];
+    preferredMeetingTimes?: string[];
+    transportationOptions?: string[];
+    exchangeMethods?: string[];
+    responseTime?: string;
+    availabilitySchedule?: string;
+  };
+  trustAndSafety: {
+    identityVerified: boolean;
+    phoneVerified: boolean;
+    emailVerified: boolean;
+    idDocument?: string;
+    emergencyContact?: {
+      name: string;
+      phone: string;
+      relationship: string;
+    };
+    safetyRating?: number;
+    safetyReviews?: number;
+  };
+  languages?: string[];
+  timezone?: string;
+  profileCompleteness: number;
+  // Additional enhancement fields
+  achievements?: {
+    firstBookShared: boolean;
+    helpfulReviewer: boolean;
+    quickResponder: boolean;
+    trustedTrader: boolean;
+    genreExplorer: boolean;
+    communityHelper: boolean;
+  };
+  badges?: string[];
+  location?: {
+    latitude?: number;
+    longitude?: number;
+    preferredSpots?: string[];
+  };
+  stats?: {
+    booksExchanged: number;
+    successfulTrades: number;
+    averageResponseTime: number;
+    communityRank: number;
+  };
 }
 
 export interface Book {
@@ -67,6 +113,71 @@ export interface Message {
   content: string;
   createdAt: Date;
   read: boolean;
+  type: 'text' | 'system' | 'exchange_request' | 'exchange_update';
+  attachments?: string[];
+  replyTo?: string;
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  type: 'book_request' | 'request_accepted' | 'message' | 'book_shared' | 'achievement' | 'reminder';
+  title: string;
+  message: string;
+  createdAt: Date;
+  read: boolean;
+  actionUrl?: string;
+  metadata?: any;
+}
+
+export interface ExchangeTracking {
+  id: string;
+  bookId: string;
+  requesterId: string;
+  ownerId: string;
+  status: 'initiated' | 'agreed' | 'in_transit' | 'completed' | 'cancelled';
+  milestones: {
+    time: Date;
+    status: string;
+    note?: string;
+  }[];
+  meetingDetails?: {
+    location: string;
+    time: Date;
+    confirmed: boolean;
+  };
+  rating?: {
+    requester: number;
+    owner: number;
+    review?: string;
+  };
+}
+
+export interface UserRecommendation {
+  userId: string;
+  score: number;
+  reasons: string[];
+  bookMatches?: Book[];
+  locationDistance?: number;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: 'sharing' | 'community' | 'exploration' | 'reliability';
+  requirement: number;
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+}
+
+export interface CommunityLeaderboard {
+  userId: string;
+  name: string;
+  avatar?: string;
+  points: number;
+  rank: number;
+  category: 'books_shared' | 'quick_response' | 'community_help' | 'overall';
 }
 
 

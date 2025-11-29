@@ -3,14 +3,17 @@ import { BookOpen, ChevronDown } from 'lucide-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
+import AdvancedSearch from './components/AdvancedSearch';
 import BookGrid from './components/BookGrid';
 import AuthForms from './components/AuthForms';
 import AddBookButton from './components/AddBookButton';
 import RequestModal from './components/RequestModal';
 import UserProfile from './components/UserProfile';
 import ProfileEditModal from './components/ProfileEditModal';
+import CommunityLeaderboard from './components/CommunityLeaderboard';
+import NotificationSystem from './components/NotificationSystem';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { Book, BookRequest } from './types';
+import { Book, BookRequest, Notification } from './types';
 import { MOCK_BOOKS } from './data/mockData';
 
 function AppContent() {
