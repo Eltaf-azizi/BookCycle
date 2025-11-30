@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Book icon matching the Header design -->
+  <path d="M8 6C8 5.44772 8.44772 5 9 5H14C14.2652 5 14.5196 5.10536 14.7071 5.29289L16 6.58579V24C16 24.5523 15.5523 25 15 25H9C8.44772 25 8 24.5523 8 24V6Z" fill="#C14953" stroke="#C14953" stroke-width="0.5"/>
+  <path d="M16 6.58579L17.2929 5.29289C17.4804 5.10536 17.7348 5 18 5H23C23.5523 5 24 5.44772 24 6V24C24 24.5523 23.5523 25 23 25H17C16.4477 25 16 24.5523 16 24V6.58579Z" fill="#2D3142" stroke="#2D3142" stroke-width="0.5"/>
+  <!-- Book spine detail -->
+  <rect x="9.5" y="7" width="1" height="17" fill="#F7F3E3" opacity="0.8"/>
+  <!-- Bookmark ribbon -->
+  <path d="M19 8L21 10L19 12V8Z" fill="#6C9A8B"/>
+  <!-- Page lines -->
+  <line x1="11" y1="10" x2="14" y2="10" stroke="#F7F3E3" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+  <line x1="11" y1="13" x2="14" y2="13" stroke="#F7F3E3" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+  <line x1="11" y1="16" x2="13.5" y2="16" stroke="#F7F3E3" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+  <line x1="18" y1="10" x2="21" y2="10" stroke="#F7F3E3" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+  <line x1="18" y1="13" x2="21" y2="13" stroke="#F7F3E3" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+  <line x1="18" y1="16" x2="20.5" y2="16" stroke="#F7F3E3" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+</svg>

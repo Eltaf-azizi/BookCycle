@@ -1,312 +1,88 @@
 import React, { useState, useEffect } from 'react';
 import { BookOpen, ChevronDown } from 'lucide-react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import SearchBar from './components/SearchBar';
-import AdvancedSearch, { SearchFilters } from './components/AdvancedSearch';
-import BookGrid from './components/BookGrid';
-import AuthForms from './components/AuthForms';
-import AddBookButton from './components/AddBookButton';
-import RequestModal from './components/RequestModal';
-import UserProfile from './components/UserProfile';
-import ProfileEditModal from './components/ProfileEditModal';
-import CommunityLeaderboard from './components/CommunityLeaderboard';
-import UserRecommendations from './components/UserRecommendations';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { Book, BookRequest, Notification, Message, User } from './types';
-import { MOCK_BOOKS, MOCK_MESSAGES } from './data/mockData';
-import MessagesModal from './components/MessagesModal';
 
-function AppContent() {
-  const [books, setBooks] = useState<Book[]>(MOCK_BOOKS);
-  const [filteredBooks, setFilteredBooks] = useState<Book[]>(MOCK_BOOKS);
-  const [authType, setAuthType] = useState<'login' | 'signup'>('login');
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [showMessages, setShowMessages] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>([
+function App() {
+  const [books] = useState([
     {
       id: '1',
-      userId: '1',
-      type: 'book_request',
-      title: 'New Book Request',
-      message: 'Ahmed Raza wants to exchange "A Brief History of Time" with you.',
-      createdAt: new Date('2023-12-20T10:30:00'),
-      read: false,
-      actionUrl: '/requests/1'
+      title: 'The Kite Runner',
+      author: 'Khaled Hosseini',
+      genre: 'Fiction',
+      condition: 'Like New',
+      city: 'Karachi',
+      status: 'Available',
+      images: ['https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg'],
+      ownerName: 'Fatima Khan'
     },
     {
       id: '2',
-      userId: '1',
-      type: 'message',
-      title: 'New Message',
-      message: 'Fatima Khan sent you a message about book exchange.',
-      createdAt: new Date('2023-12-19T15:45:00'),
-      read: false,
-      actionUrl: '/messages/2'
+      title: 'A Brief History of Time',
+      author: 'Stephen Hawking',
+      genre: 'Non-Fiction',
+      condition: 'Good',
+      city: 'Lahore',
+      status: 'Available',
+      images: ['https://images.pexels.com/photos/3747139/pexels-photo-3747139.jpeg'],
+      ownerName: 'Ahmed Raza'
     },
     {
       id: '3',
-      userId: '1',
-      type: 'achievement',
-      title: 'Achievement Unlocked!',
-      message: 'Congratulations! You earned the "Quick Responder" badge.',
-      createdAt: new Date('2023-12-18T09:20:00'),
-      read: true,
-    },
-    {
-      id: '4',
-      userId: '1',
-      type: 'request_accepted',
-      title: 'Request Accepted',
-      message: 'Saad Ali accepted your request for "The Kite Runner".',
-      createdAt: new Date('2023-12-17T14:15:00'),
-      read: true,
-      actionUrl: '/exchanges/4'
+      title: 'To Kill a Mockingbird',
+      author: 'Harper Lee',
+      genre: 'Fiction',
+      condition: 'Worn',
+      city: 'Islamabad',
+      status: 'Available',
+      images: ['https://images.pexels.com/photos/3747512/pexels-photo-3747512.jpeg'],
+      ownerName: 'Saad Ali'
     }
   ]);
-  const { user, isAuthenticated, updateProfile } = useAuth();
-  const [messages, setMessages] = useState<Message[]>(MOCK_MESSAGES);
-  const [searchParams, setSearchParams] = useState<Partial<SearchFilters>>({ query: '', city: '' });
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchCity, setSearchCity] = useState('');
+  const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
     let filtered = [...books];
-
-    // Filter by search query
-    if (searchParams.query) {
-      const query = searchParams.query.toLowerCase();
+    
+    if (searchQuery) {
       filtered = filtered.filter(book =>
-        book.title.toLowerCase().includes(query) ||
-        book.author.toLowerCase().includes(query) ||
-        book.genre.toLowerCase().includes(query)
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.genre.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-
-      // Filter by city
-      if (searchParams.city) {
-        filtered = filtered.filter(book => book.city.toLowerCase() === (searchParams.city || '').toLowerCase());
-      }
-
-      // Additional advanced filters
-      if (searchParams.genre) {
-        filtered = filtered.filter(book => book.genre.toLowerCase() === (searchParams.genre || '').toLowerCase());
-      }
-
-      if (searchParams.condition) {
-        filtered = filtered.filter(book => book.condition.toLowerCase() === (searchParams.condition || '').toLowerCase());
-      }
-
-      if (searchParams.availability) {
-        filtered = filtered.filter(book => book.status.toLowerCase() === (searchParams.availability || '').toLowerCase());
-      }
-
-      setFilteredBooks(filtered);
-  }, [books, searchParams]);
-
-    const handleSearch = (params: Partial<SearchFilters>) => {
-      // Merge new params into existing search params
-      setSearchParams(prev => ({ ...prev, ...params }));
-  };
-
-  const handleAdvancedSearch = (filters: Partial<SearchFilters>) => {
-    // Combine advanced filters with basic search
-    const combinedParams = {
-      query: filters.query || '',
-      city: filters.city || '',
-      genre: filters.genre || '',
-      condition: filters.condition || '',
-      availability: filters.availability || 'Available',
-      userRating: filters.userRating || 0,
-      responseTime: filters.responseTime || '',
-      verifiedOnly: filters.verifiedOnly || false,
-      distance: filters.distance || 50,
-    };
-    setSearchParams(combinedParams);
-    setShowAdvancedSearch(false);
-  };
-
-  
-  const handleMarkNotificationAsRead = (id: string) => {
-    setNotifications(prev => 
-      prev.map(notif => 
-        notif.id === id ? { ...notif, read: true } : notif
-      )
-    );
-  };
-
-  const handleMarkAllNotificationsAsRead = () => {
-    setNotifications(prev => 
-      prev.map(notif => ({ ...notif, read: true }))
-    );
-  };
-
-  const handleDeleteNotification = (id: string) => {
-    setNotifications(prev => 
-      prev.filter(notif => notif.id !== id)
-    );
-  };
-
-  const handleAddBook = (bookData: Omit<Book, 'id' | 'ownerId' | 'ownerName' | 'createdAt'>) => {
-    if (!isAuthenticated) {
-      setAuthType('login');
-      setIsAuthModalOpen(true);
-      return;
+    
+    if (searchCity) {
+      filtered = filtered.filter(book => book.city.toLowerCase() === searchCity.toLowerCase());
     }
-
-    // In a real app, this would make an API call
-    const newBook: Book = {
-      ...bookData,
-      id: Date.now().toString(),
-      ownerId: user?.id || '',
-      ownerName: user?.name || '',
-      createdAt: new Date(),
-    };
-
-    setBooks(prev => [newBook, ...prev]);
-  };
-
-  const handleRequestBook = (bookId: string) => {
-    if (!isAuthenticated) {
-      setAuthType('login');
-      setIsAuthModalOpen(true);
-      return;
-    }
-
-    const book = books.find(b => b.id === bookId);
-    if (book) {
-      setSelectedBook(book);
-      setIsRequestModalOpen(true);
-    }
-  };
-
-  const handleSubmitRequest = (request: Partial<BookRequest>) => {
-    // Book request submitted successfully
-
-    // Update the book status to Reserved
-    setBooks(prev =>
-      prev.map(book =>
-        book.id === request.bookId
-          ? { ...book, status: 'Reserved' }
-          : book
-      )
-    );
-  };
-
-  const handleShowProfile = () => {
-    setShowProfile(true);
-  };
-
-  const handleEditProfile = () => {
-    setIsEditProfileOpen(true);
-  };
-
-  const handleSaveProfile = (userData: Partial<User>) => {
-    updateProfile(userData);
-  };
-
-  const handleContactUser = () => {
-    if (!isAuthenticated) {
-      setAuthType('login');
-      setIsAuthModalOpen(true);
-      return;
-    }
-    // In a real app, this would open a messaging interface - open messages modal instead
-    setShowMessages(true);
-  };
-
-  const handleSendMessage = (toUserId: string, content: string) => {
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      senderId: user?.id || 'me',
-      receiverId: toUserId,
-      content,
-      type: 'text',
-      createdAt: new Date(),
-      read: false,
-    };
-    setMessages(prev => [...prev, newMessage]);
-  };
-
-  const handleMarkMessageAsRead = (id: string) => {
-    setMessages(prev => prev.map(m => m.id === id ? { ...m, read: true } : m));
-  };
-
-
-  // Filter books by user for profile view
-  const userBooks = books.filter(book => book.ownerId === user?.id);
-
-  // Show profile page if user clicked on profile
-  if (showProfile && user) {
-    return (
-      <div className="min-h-screen bg-[#F7F3E3]">
-        <Header
-          onLoginClick={() => {
-            setAuthType('login');
-            setIsAuthModalOpen(true);
-          }}
-          onSignupClick={() => {
-            setAuthType('signup');
-            setIsAuthModalOpen(true);
-          }}
-          onProfileClick={() => setShowProfile(false)}
-          notifications={notifications}
-          onMarkAsRead={handleMarkNotificationAsRead}
-          onMarkAllAsRead={handleMarkAllNotificationsAsRead}
-          onDeleteNotification={handleDeleteNotification}
-          onMessagesClick={() => setShowMessages(true)}
-        />
-        
-        <UserProfile
-          user={user}
-          userBooks={userBooks}
-          isOwnProfile={true}
-          onEditProfile={handleEditProfile}
-          onContactUser={handleContactUser}
-        />
-        
-        <ProfileEditModal
-          isOpen={isEditProfileOpen}
-          onClose={() => setIsEditProfileOpen(false)}
-          user={user}
-          onSave={handleSaveProfile}
-        />
-        
-        <Footer />
-        <MessagesModal
-          isOpen={showMessages}
-          onClose={() => setShowMessages(false)}
-          messages={messages}
-          currentUser={user}
-          onSendMessage={handleSendMessage}
-          onMarkAsRead={handleMarkMessageAsRead}
-        />
-      </div>
-    );
-  }
+    
+    setFilteredBooks(filtered);
+  }, [searchQuery, searchCity, books]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F3E3]">
-      <Header
-        onLoginClick={() => {
-          setAuthType('login');
-          setIsAuthModalOpen(true);
-        }}
-        onSignupClick={() => {
-          setAuthType('signup');
-          setIsAuthModalOpen(true);
-        }}
-        onProfileClick={handleShowProfile}
-        notifications={notifications}
-        onMarkAsRead={handleMarkNotificationAsRead}
-        onMarkAllAsRead={handleMarkAllNotificationsAsRead}
-        onDeleteNotification={handleDeleteNotification}
-        onMessagesClick={() => setShowMessages(true)}
-      />
+    <div className="min-h-screen bg-[#F7F3E3]">
+      {/* Header */}
+      <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <BookOpen className="h-8 w-8 text-[#C14953]" />
+              <span className="ml-2 text-xl font-semibold text-[#2D3142]">
+                BookCycle <span className="text-[#C14953]">Pakistan</span>
+              </span>
+            </div>
+            <div className="hidden md:flex items-center space-x-4">
+              <button className="text-[#2D3142] border border-[#6C9A8B] hover:bg-[#6C9A8B] hover:text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                Login
+              </button>
+              <button className="bg-[#C14953] text-white hover:bg-[#a73f48] px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
 
       <main className="flex-grow pt-16">
         {/* Hero Section */}
@@ -323,15 +99,32 @@ function AppContent() {
               </p>
             </div>
 
-
-            <div className="flex flex-col items-center gap-3">
-              <SearchBar onSearch={handleSearch} />
-              <div className="mt-2 flex items-center space-x-3">
-                <button
-                  onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
-                  className="text-sm text-[#2D3142] border border-[#6C9A8B] px-3 py-1 rounded-md hover:bg-[#6C9A8B] hover:text-white transition-colors"
+            {/* Search Bar */}
+            <div className="max-w-4xl mx-auto">
+              <div className="flex flex-col md:flex-row gap-2">
+                <div className="relative flex-grow">
+                  <input
+                    type="text"
+                    placeholder="Search for books by title, author, or genre..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-4 pr-3 py-3 border-2 border-[#6C9A8B] rounded-lg md:rounded-r-none focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
+                  />
+                </div>
+                <select
+                  value={searchCity}
+                  onChange={(e) => setSearchCity(e.target.value)}
+                  className="md:w-48 px-3 py-3 border-2 border-[#6C9A8B] md:border-l-0 rounded-lg md:rounded-l-none focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
                 >
-                  {showAdvancedSearch ? 'Hide Advanced Search' : 'Advanced Search'}
+                  <option value="">All Cities</option>
+                  <option value="Karachi">Karachi</option>
+                  <option value="Lahore">Lahore</option>
+                  <option value="Islamabad">Islamabad</option>
+                  <option value="Rawalpindi">Rawalpindi</option>
+                  <option value="Faisalabad">Faisalabad</option>
+                </select>
+                <button className="bg-[#C14953] hover:bg-[#a73f48] text-white py-3 px-6 rounded-lg transition-colors">
+                  Search
                 </button>
               </div>
             </div>
@@ -344,9 +137,9 @@ function AppContent() {
                 {['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad'].map(city => (
                   <button
                     key={city}
-                    onClick={() => handleSearch({ ...searchParams, city: city.toLowerCase() })}
+                    onClick={() => setSearchCity(city.toLowerCase())}
                     className={`px-3 py-1 rounded-full text-sm ${
-                      searchParams.city === city.toLowerCase()
+                      searchCity === city.toLowerCase()
                         ? 'bg-[#C14953] text-white'
                         : 'bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors'
                     }`}
@@ -359,16 +152,6 @@ function AppContent() {
           </div>
         </section>
 
-        {/* Advanced Search */}
-        {showAdvancedSearch && (
-          <section className="py-8 md:py-8 px-4 md:px-6 max-w-7xl mx-auto">
-            <AdvancedSearch
-              availableGenres={[...new Set(books.map(b => b.genre))]}
-              onSearch={handleAdvancedSearch}
-            />
-          </section>
-        )}
-
         {/* Books Grid Section */}
         <section className="py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -377,49 +160,33 @@ function AppContent() {
                 <h2 className="text-2xl md:text-3xl font-bold text-[#2D3142]">Available Books</h2>
                 <p className="text-gray-600 mt-1">Browse books available for exchange</p>
               </div>
-              
-              <div className="mt-4 sm:mt-0">
-                <div className="flex items-center">
-                  <span className="text-sm text-gray-700 mr-2">Sort by:</span>
-                  <button className="flex items-center text-sm font-medium text-[#2D3142] border border-gray-300 rounded-md px-3 py-1 hover:bg-gray-50 transition-colors">
-                    Newest First
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </button>
-                </div>
-              </div>
             </div>
-                        
+                         
             {filteredBooks.length > 0 ? (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2">
-                  <BookGrid books={filteredBooks} onRequestBook={handleRequestBook} />
-                </div>
-
-                <aside className="lg:col-span-1 space-y-6">
-                  {/* Recommendations */}
-                  {user && (
-                    <UserRecommendations currentUser={user} allUsers={[]} />
-                  )}
-
-                  {/* Leaderboard */}
-                  <div className="bg-white rounded-lg shadow-md p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-sm font-semibold">Community</h3>
-                      <button
-                        onClick={() => setShowLeaderboard(!showLeaderboard)}
-                        className="text-xs text-gray-500 hover:text-gray-700"
-                      >
-                        {showLeaderboard ? 'Hide' : 'Show'}
-                      </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredBooks.map((book) => (
+                  <div key={book.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img
+                      src={book.images[0]}
+                      alt={book.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold text-[#2D3142] mb-1">{book.title}</h3>
+                      <p className="text-gray-600 mb-2">by {book.author}</p>
+                      <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
+                        <span className="bg-[#F7F3E3] px-2 py-1 rounded">{book.genre}</span>
+                        <span>{book.condition}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-600">📍 {book.city}</span>
+                        <button className="bg-[#6C9A8B] text-white px-3 py-1 rounded text-sm hover:bg-[#5a7f73] transition-colors">
+                          Request
+                        </button>
+                      </div>
                     </div>
-
-                    {showLeaderboard ? (
-                      <CommunityLeaderboard currentUserId={user?.id} />
-                    ) : (
-                      <div className="text-sm text-gray-500">Leaderboard hidden — click Show to view community leaders</div>
-                    )}
                   </div>
-                </aside>
+                ))}
               </div>
             ) : (
               <div className="text-center py-12">
@@ -427,14 +194,14 @@ function AppContent() {
                   <BookOpen className="h-12 w-12 text-[#C14953] mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-[#2D3142] mb-2">No Books Found</h3>
                   <p className="text-gray-600">
-                    We couldn't find any books matching your search criteria. Try adjusting your filters or add your own books to the exchange!
+                    We couldn't find any books matching your search criteria.
                   </p>
-                  
                   <button
                     onClick={() => {
-                      setSearchParams({ query: '', city: '' });
+                      setSearchQuery('');
+                      setSearchCity('');
                     }}
-                    className="mt-4 px-4 py-2 bg-[#6C9A8B] text-white rounded-md hover:bg-[#5a7f73] transition-colors inline-flex items-center"
+                    className="mt-4 px-4 py-2 bg-[#6C9A8B] text-white rounded-md hover:bg-[#5a7f73] transition-colors"
                   >
                     Clear Filters
                   </button>
@@ -485,68 +252,37 @@ function AppContent() {
             </div>
             
             <div className="mt-10 text-center">
-              <button
-                onClick={() => {
-                  if (!isAuthenticated) {
-                    setAuthType('signup');
-                    setIsAuthModalOpen(true);
-                  }
-                }}
-                className="px-6 py-3 bg-[#C14953] text-white rounded-md hover:bg-[#a73f48] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C14953] focus:ring-offset-2"
-              >
-                {isAuthenticated ? 'Add Your Books' : 'Join The Community'}
+              <button className="px-6 py-3 bg-[#C14953] text-white rounded-md hover:bg-[#a73f48] transition-colors">
+                Join The Community
               </button>
             </div>
           </div>
         </section>
       </main>
 
+      {/* Footer */}
+      <footer className="bg-[#2D3142] text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <BookOpen className="h-6 w-6 text-[#C14953]" />
+              <span className="ml-2 text-lg font-semibold">
+                BookCycle <span className="text-[#C14953]">Pakistan</span>
+              </span>
+            </div>
+            <p className="text-gray-300">Share Books, Spread Knowledge</p>
+            <p className="text-sm text-gray-400 mt-2">© 2023 BookCycle Pakistan. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
 
-      <Footer />
-      
       {/* Add Book Button */}
-      <AddBookButton onAddBook={handleAddBook} />
-      
-      {/* Auth Modal */}
-      <AuthForms
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        type={authType}
-      />
-      
-      {/* Request Modal */}
-      <RequestModal
-        isOpen={isRequestModalOpen}
-        onClose={() => setIsRequestModalOpen(false)}
-        book={selectedBook}
-        onSubmit={handleSubmitRequest}
-      />
-
-      <MessagesModal
-        isOpen={showMessages}
-        onClose={() => setShowMessages(false)}
-        messages={messages}
-        currentUser={user}
-        onSendMessage={handleSendMessage}
-        onMarkAsRead={handleMarkMessageAsRead}
-      />
-      
-      {/* Profile Edit Modal */}
-      <ProfileEditModal
-        isOpen={isEditProfileOpen}
-        onClose={() => setIsEditProfileOpen(false)}
-        user={user!}
-        onSave={handleSaveProfile}
-      />
+      <button className="fixed right-6 bottom-6 md:right-10 md:bottom-10 bg-[#C14953] text-white rounded-full p-3 md:p-4 shadow-lg hover:bg-[#a73f48] transition-colors duration-200">
+        <svg className="h-6 w-6 md:h-8 md:w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      </button>
     </div>
-  );
-}
-
-function App() {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
   );
 }
 
