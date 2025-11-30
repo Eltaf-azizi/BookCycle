@@ -117,11 +117,88 @@ function App() {
                   className="md:w-48 px-3 py-3 border-2 border-[#6C9A8B] md:border-l-0 rounded-lg md:rounded-l-none focus:outline-none focus:ring-2 focus:ring-[#6C9A8B]"
                 >
                   <option value="">All Cities</option>
-                  <option value="Karachi">Karachi</option>
-                  <option value="Lahore">Lahore</option>
-                  <option value="Islamabad">Islamabad</option>
-                  <option value="Rawalpindi">Rawalpindi</option>
-                  <option value="Faisalabad">Faisalabad</option>
+                  
+                  {/* Punjab */}
+                  <optgroup label="Punjab">
+                    <option value="Lahore">Lahore</option>
+                    <option value="Faisalabad">Faisalabad</option>
+                    <option value="Rawalpindi">Rawalpindi</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Gujranwala">Gujranwala</option>
+                    <option value="Sialkot">Sialkot</option>
+                    <option value="Sargodha">Sargodha</option>
+                    <option value="Bahawalpur">Bahawalpur</option>
+                    <option value="Jhang">Jhang</option>
+                    <option value="Sheikhupura">Sheikhupura</option>
+                    <option value="Gujrat">Gujrat</option>
+                    <option value="Mardan">Mardan</option>
+                    <option value="Kasur">Kasur</option>
+                    <option value="Dera Ghazi Khan">Dera Ghazi Khan</option>
+                    <option value="Sahiwal">Sahiwal</option>
+                    <option value="Nankana Sahib">Nankana Sahib</option>
+                    <option value="Chiniot">Chiniot</option>
+                    <option value="Mianwali">Mianwali</option>
+                    <option value="Jhelum">Jhelum</option>
+                    <option value="Chakwal">Chakwal</option>
+                    <option value="Attock">Attock</option>
+                  </optgroup>
+                  
+                  {/* Sindh */}
+                  <optgroup label="Sindh">
+                    <option value="Karachi">Karachi</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Sukkur">Sukkur</option>
+                    <option value="Larkana">Larkana</option>
+                    <option value="Nawabshah">Nawabshah</option>
+                    <option value="Mirpurkhas">Mirpurkhas</option>
+                    <option value="Jacobabad">Jacobabad</option>
+                    <option value="Shikarpur">Shikarpur</option>
+                    <option value="Khairpur">Khairpur</option>
+                    <option value="Dadu">Dadu</option>
+                    <option value="Thatta">Thatta</option>
+                    <option value="Badin">Badin</option>
+                    <option value="Umerkot">Umerkot</option>
+                  </optgroup>
+                  
+                  {/* Khyber Pakhtunkhwa */}
+                  <optgroup label="Khyber Pakhtunkhwa">
+                    <option value="Peshawar">Peshawar</option>
+                    <option value="Mingora">Mingora</option>
+                    <option value="Kohat">Kohat</option>
+                    <option value="Bannu">Bannu</option>
+                    <option value="Dera Ismail Khan">Dera Ismail Khan</option>
+                    <option value="Abbottabad">Abbottabad</option>
+                    <option value="Swabi">Swabi</option>
+                    <option value="Nowshera">Nowshera</option>
+                    <option value="Chitral">Chitral</option>
+                  </optgroup>
+                  
+                  {/* Balochistan */}
+                  <optgroup label="Balochistan">
+                    <option value="Quetta">Quetta</option>
+                    <option value="Gwadar">Gwadar</option>
+                    <option value="Khuzdar">Khuzdar</option>
+                    <option value="Turbat">Turbat</option>
+                    <option value="Chaman">Chaman</option>
+                    <option value="Hub">Hub</option>
+                    <option value="Lasbela">Lasbela</option>
+                    <option value="Kharan">Kharan</option>
+                    <option value="Mastung">Mastung</option>
+                    <option value="Kalat">Kalat</option>
+                  </optgroup>
+                  
+                  {/* Islamabad & Azad Kashmir */}
+                  <optgroup label="Islamabad & Azad Kashmir">
+                    <option value="Islamabad">Islamabad</option>
+                    <option value="Muzaffarabad">Muzaffarabad</option>
+                    <option value="Mirpur">Mirpur</option>
+                  </optgroup>
+                  
+                  {/* Gilgit-Baltistan */}
+                  <optgroup label="Gilgit-Baltistan">
+                    <option value="Gilgit">Gilgit</option>
+                    <option value="Skardu">Skardu</option>
+                  </optgroup>
                 </select>
                 <button className="bg-[#C14953] hover:bg-[#a73f48] text-white py-3 px-6 rounded-lg transition-colors">
                   Search
@@ -131,10 +208,10 @@ function App() {
 
             <div className="mt-12 text-center">
               <p className="text-gray-300 mb-3">
-                Exchange books in major cities across Pakistan
+                Exchange books in cities across all provinces of Pakistan
               </p>
               <div className="flex flex-wrap justify-center gap-2">
-                {['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad'].map(city => (
+                {['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan', 'Peshawar', 'Quetta'].map(city => (
                   <button
                     key={city}
                     onClick={() => setSearchCity(city.toLowerCase())}
