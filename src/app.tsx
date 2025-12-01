@@ -9,10 +9,10 @@ function App() {
       author: 'Khaled Hosseini',
       genre: 'Fiction',
       condition: 'Like New',
-      city: 'Karachi',
+      cities: ['Karachi', 'Lahore', 'Islamabad'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg'],
-      ownerName: 'Fatima Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9781594631931-L.jpg'],
+      ownerNames: ['Fatima Khan', 'Ahmed Raza', 'Saad Ali']
     },
     {
       id: '2',
@@ -20,10 +20,10 @@ function App() {
       author: 'Stephen Hawking',
       genre: 'Non-Fiction',
       condition: 'Good',
-      city: 'Lahore',
+      cities: ['Lahore', 'Faisalabad'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747139/pexels-photo-3747139.jpeg'],
-      ownerName: 'Ahmed Raza'
+      images: ['https://covers.openlibrary.org/b/isbn/9780553380163-L.jpg'],
+      ownerNames: ['Dr. Ahmed Raza', 'Muhammad Hassan']
     },
     {
       id: '3',
@@ -31,10 +31,10 @@ function App() {
       author: 'Harper Lee',
       genre: 'Fiction',
       condition: 'Worn',
-      city: 'Islamabad',
+      cities: ['Islamabad', 'Rawalpindi', 'Peshawar'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747512/pexels-photo-3747512.jpeg'],
-      ownerName: 'Saad Ali'
+      images: ['https://covers.openlibrary.org/b/isbn/9780061120084-L.jpg'],
+      ownerNames: ['Saad Ali', 'Bilal Khan', 'Sara Begum']
     },
     {
       id: '4',
@@ -42,10 +42,10 @@ function App() {
       author: 'Jane Austen',
       genre: 'Romance',
       condition: 'Good',
-      city: 'Quetta',
+      cities: ['Quetta', 'Gwadar'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747201/pexels-photo-3747201.jpeg'],
-      ownerName: 'Bilal Ahmad'
+      images: ['https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg'],
+      ownerNames: ['Bilal Ahmad', 'Hassan Raza']
     },
     {
       id: '5',
@@ -53,10 +53,10 @@ function App() {
       author: 'George Orwell',
       genre: 'Science Fiction',
       condition: 'Like New',
-      city: 'Peshawar',
+      cities: ['Peshawar', 'Mardan', 'Mingora'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747555/pexels-photo-3747555.jpeg'],
-      ownerName: 'Sara Begum'
+      images: ['https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg'],
+      ownerNames: ['Sara Begum', 'Samreen Bibi', 'Arifullah Khan']
     },
     {
       id: '6',
@@ -64,10 +64,10 @@ function App() {
       author: 'F. Scott Fitzgerald',
       genre: 'Classic Fiction',
       condition: 'Good',
-      city: 'Faisalabad',
+      cities: ['Faisalabad', 'Multan', 'Sargodha'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747119/pexels-photo-3747119.jpeg'],
-      ownerName: 'Muhammad Usman'
+      images: ['https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg'],
+      ownerNames: ['Muhammad Usman', 'Aisha Malik', 'Tariq Mahmood']
     },
     {
       id: '7',
@@ -75,10 +75,10 @@ function App() {
       author: 'J.K. Rowling',
       genre: 'Fantasy',
       condition: 'Like New',
-      city: 'Multan',
+      cities: ['Multan', 'Bahawalpur', 'Kasur'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747177/pexels-photo-3747177.jpeg'],
-      ownerName: 'Aisha Malik'
+      images: ['https://covers.openlibrary.org/b/isbn/9780439708180-L.jpg'],
+      ownerNames: ['Aisha Malik', 'Imran Khan', 'Kausar Ali']
     },
     {
       id: '8',
@@ -86,10 +86,10 @@ function App() {
       author: 'Napoleon Hill',
       genre: 'Self-Help',
       condition: 'Good',
-      city: 'Rawalpindi',
+      cities: ['Rawalpindi', 'Gujranwala', 'Sialkot'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747208/pexels-photo-3747208.jpeg'],
-      ownerName: 'Khalid Hussain'
+      images: ['https://covers.openlibrary.org/b/isbn/9781585424337-L.jpg'],
+      ownerNames: ['Khalid Hussain', 'Zainab Sheikh', 'Rubina Khan']
     },
     {
       id: '9',
@@ -97,10 +97,10 @@ function App() {
       author: 'J.D. Salinger',
       genre: 'Coming of Age',
       condition: 'Worn',
-      city: 'Gujranwala',
+      cities: ['Gujranwala', 'Jhang', 'Sheikhupura'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747046/pexels-photo-3747046.jpeg'],
-      ownerName: 'Zainab Sheikh'
+      images: ['https://covers.openlibrary.org/b/isbn/9780316769488-L.jpg'],
+      ownerNames: ['Zainab Sheikh', 'Ali Hassan', 'Rashid Ahmed']
     },
     {
       id: '10',
@@ -108,10 +108,10 @@ function App() {
       author: 'Robert Kiyosaki',
       genre: 'Finance',
       condition: 'Good',
-      city: 'Hyderabad',
+      cities: ['Hyderabad', 'Sukkur', 'Larkana'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3747054/pexels-photo-3747054.jpeg'],
-      ownerName: 'Farhan Ali'
+      images: ['https://covers.openlibrary.org/b/isbn/9781611634095-L.jpg'],
+      ownerNames: ['Farhan Ali', 'Nadia Ahmad', 'Yasir Ahmed']
     },
     {
       id: '11',
@@ -119,10 +119,10 @@ function App() {
       author: 'Paulo Coelho',
       genre: 'Philosophy',
       condition: 'Like New',
-      city: 'Sialkot',
+      cities: ['Sialkot', 'Gujrat', 'Chiniot'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746974/pexels-photo-3746974.jpeg'],
-      ownerName: 'Rubina Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9780061122415-L.jpg'],
+      ownerNames: ['Rubina Khan', 'Muhammad Ali', 'Khalida Bibi']
     },
     {
       id: '12',
@@ -130,10 +130,10 @@ function App() {
       author: 'Yuval Noah Harari',
       genre: 'History',
       condition: 'Good',
-      city: 'Sargodha',
+      cities: ['Sargodha', 'Mianwali', 'Khushab'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746947/pexels-photo-3746947.jpeg'],
-      ownerName: 'Tariq Mahmood'
+      images: ['https://covers.openlibrary.org/b/isbn/9780062316110-L.jpg'],
+      ownerNames: ['Tariq Mahmood', 'Ijaz Ahmad', 'Shama Parveen']
     },
     {
       id: '13',
@@ -141,10 +141,10 @@ function App() {
       author: 'Anne Frank',
       genre: 'Biography',
       condition: 'Good',
-      city: 'Sukkur',
+      cities: ['Sukkur', 'Nawabshah', 'Mirpurkhas'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746898/pexels-photo-3746898.jpeg'],
-      ownerName: 'Nadia Ahmad'
+      images: ['https://covers.openlibrary.org/b/isbn/9780553577129-L.jpg'],
+      ownerNames: ['Nadia Ahmad', 'Omer Farooq', 'Sana Ullah']
     },
     {
       id: '14',
@@ -152,10 +152,10 @@ function App() {
       author: 'J.R.R. Tolkien',
       genre: 'Fantasy',
       condition: 'Like New',
-      city: 'Bahawalpur',
+      cities: ['Bahawalpur', 'Dera Ghazi Khan', 'Rajanpur'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746818/pexels-photo-3746818.jpeg'],
-      ownerName: 'Imran Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9780547928227-L.jpg'],
+      ownerNames: ['Imran Khan', 'Shahzad Ahmad', 'Fouzia Begum']
     },
     {
       id: '15',
@@ -163,10 +163,10 @@ function App() {
       author: 'James Clear',
       genre: 'Self-Help',
       condition: 'Good',
-      city: 'Mardan',
+      cities: ['Mardan', 'Nowshera', 'Swabi'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746782/pexels-photo-3746782.jpeg'],
-      ownerName: 'Samreen Bibi'
+      images: ['https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg'],
+      ownerNames: ['Samreen Bibi', 'Khalid Khan', 'Nasir Hassan']
     },
     {
       id: '16',
@@ -174,10 +174,10 @@ function App() {
       author: 'Stieg Larsson',
       genre: 'Mystery',
       condition: 'Worn',
-      city: 'Mingora',
+      cities: ['Mingora', 'Chitral', 'Dir'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746775/pexels-photo-3746775.jpeg'],
-      ownerName: 'Arifullah Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9780307454546-L.jpg'],
+      ownerNames: ['Arifullah Khan', 'Madiha Fatima', 'Gul Hassan']
     },
     {
       id: '17',
@@ -185,10 +185,10 @@ function App() {
       author: 'Walter Isaacson',
       genre: 'Biography',
       condition: 'Good',
-      city: 'Gwadar',
+      cities: ['Gwadar', 'Khuzdar', 'Turbat'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746741/pexels-photo-3746741.jpeg'],
-      ownerName: 'Hassan Raza'
+      images: ['https://covers.openlibrary.org/b/isbn/9781451648539-L.jpg'],
+      ownerNames: ['Hassan Raza', 'Fouzia Begum', 'Shahid Khan']
     },
     {
       id: '18',
@@ -196,10 +196,10 @@ function App() {
       author: 'Eckhart Tolle',
       genre: 'Spirituality',
       condition: 'Like New',
-      city: 'Kohat',
+      cities: ['Kohat', 'Bannu', 'Dera Ismail Khan'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746733/pexels-photo-3746733.jpeg'],
-      ownerName: 'Saima Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9781577314806-L.jpg'],
+      ownerNames: ['Saima Khan', 'Rizwan Ali', 'Bushra Khan']
     },
     {
       id: '19',
@@ -207,10 +207,10 @@ function App() {
       author: 'Gillian Flynn',
       genre: 'Thriller',
       condition: 'Good',
-      city: 'Larkana',
+      cities: ['Larkana', 'Khairpur', 'Shikarpur'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746725/pexels-photo-3746725.jpeg'],
-      ownerName: 'Yasir Ahmed'
+      images: ['https://covers.openlibrary.org/b/isbn/9780307588364-L.jpg'],
+      ownerNames: ['Yasir Ahmed', 'Mariam Khan', 'Nasir Khan']
     },
     {
       id: '20',
@@ -218,10 +218,10 @@ function App() {
       author: 'Mark Manson',
       genre: 'Self-Help',
       condition: 'Good',
-      city: 'Khuzdar',
+      cities: ['Khuzdar', 'Lasbela', 'Kharan'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746706/pexels-photo-3746706.jpeg'],
-      ownerName: 'Fouzia Begum'
+      images: ['https://covers.openlibrary.org/b/isbn/9780062457714-L.jpg'],
+      ownerNames: ['Fouzia Begum', 'Shahid Khan', 'Maria Bibi']
     },
     {
       id: '21',
@@ -229,10 +229,10 @@ function App() {
       author: 'George R.R. Martin',
       genre: 'Fantasy',
       condition: 'Like New',
-      city: 'Turbat',
+      cities: ['Turbat', 'Chaman', 'Kech'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746697/pexels-photo-3746697.jpeg'],
-      ownerName: 'Shahid Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9780553103540-L.jpg'],
+      ownerNames: ['Shahid Khan', 'Madiha Fatima', 'Gul Khan']
     },
     {
       id: '22',
@@ -240,10 +240,10 @@ function App() {
       author: 'Eric Ries',
       genre: 'Business',
       condition: 'Good',
-      city: 'Bannu',
+      cities: ['Bannu', 'Hangu', 'Karak'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746679/pexels-photo-3746679.jpeg'],
-      ownerName: 'Rizwan Ali'
+      images: ['https://covers.openlibrary.org/b/isbn/9780307887894-L.jpg'],
+      ownerNames: ['Rizwan Ali', 'Shahzad Ahmad', 'Khalid Khan']
     },
     {
       id: '23',
@@ -251,10 +251,10 @@ function App() {
       author: 'Tara Westover',
       genre: 'Memoir',
       condition: 'Good',
-      city: 'Abbottabad',
+      cities: ['Abbottabad', 'Mansehra', 'Haripur'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746662/pexels-photo-3746662.jpeg'],
-      ownerName: 'Bushra Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg'],
+      ownerNames: ['Bushra Khan', 'Saima Bibi', 'Rashid Ali']
     },
     {
       id: '24',
@@ -262,10 +262,10 @@ function App() {
       author: 'Dan Brown',
       genre: 'Mystery',
       condition: 'Worn',
-      city: 'Nawabshah',
+      cities: ['Nawabshah', 'Badin', 'Thatta'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746651/pexels-photo-3746651.jpeg'],
-      ownerName: 'Omer Farooq'
+      images: ['https://covers.openlibrary.org/b/isbn/9780307277670-L.jpg'],
+      ownerNames: ['Omer Farooq', 'Sana Bibi', 'Ali Hassan']
     },
     {
       id: '25',
@@ -273,10 +273,10 @@ function App() {
       author: 'Frank Herbert',
       genre: 'Science Fiction',
       condition: 'Good',
-      city: 'Mirpurkhas',
+      cities: ['Mirpurkhas', 'Umerkot', 'Tharparkar'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746638/pexels-photo-3746638.jpeg'],
-      ownerName: 'Sana Ullah'
+      images: ['https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg'],
+      ownerNames: ['Sana Ullah', 'Mariam Khan', 'Fouzia Bibi']
     },
     {
       id: '26',
@@ -284,10 +284,10 @@ function App() {
       author: 'Stephen Covey',
       genre: 'Self-Help',
       condition: 'Like New',
-      city: 'Kasur',
+      cities: ['Kasur', 'Nankana Sahib', 'Chiniot'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746629/pexels-photo-3746629.jpeg'],
-      ownerName: 'Kausar Ali'
+      images: ['https://covers.openlibrary.org/b/isbn/9781451639612-L.jpg'],
+      ownerNames: ['Kausar Ali', 'Muhammad Ali', 'Rubina Khan']
     },
     {
       id: '27',
@@ -295,10 +295,10 @@ function App() {
       author: 'Stephen King',
       genre: 'Horror',
       condition: 'Good',
-      city: 'Chitral',
+      cities: ['Chitral', 'Ghizer', 'Skardu'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746617/pexels-photo-3746617.jpeg'],
-      ownerName: 'Madiha Fatima'
+      images: ['https://covers.openlibrary.org/b/isbn/9781501142970-L.jpg'],
+      ownerNames: ['Madiha Fatima', 'Gul Hassan', 'Shirin Bibi']
     },
     {
       id: '28',
@@ -306,10 +306,10 @@ function App() {
       author: 'Benjamin Graham',
       genre: 'Finance',
       condition: 'Good',
-      city: 'Dera Ghazi Khan',
+      cities: ['Dera Ghazi Khan', 'Layyah', 'Muzaffargarh'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746608/pexels-photo-3746608.jpeg'],
-      ownerName: 'Shahzad Ahmad'
+      images: ['https://covers.openlibrary.org/b/isbn/9780060555665-L.jpg'],
+      ownerNames: ['Shahzad Ahmad', 'Mariam Khan', 'Ali Raza']
     },
     {
       id: '29',
@@ -317,10 +317,10 @@ function App() {
       author: 'Rhonda Byrne',
       genre: 'Self-Help',
       condition: 'Worn',
-      city: 'Jacobabad',
+      cities: ['Jacobabad', 'Ghotki', 'Kashmore'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746597/pexels-photo-3746597.jpeg'],
-      ownerName: 'Mariam Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9781582702707-L.jpg'],
+      ownerNames: ['Mariam Khan', 'Shahzad Ahmed', 'Fouzia Bibi']
     },
     {
       id: '30',
@@ -328,10 +328,10 @@ function App() {
       author: 'Diana Gabaldon',
       genre: 'Historical Fiction',
       condition: 'Good',
-      city: 'Shikarpur',
+      cities: ['Shikarpur', 'Kashmore', 'Kandhkot'],
       status: 'Available',
-      images: ['https://images.pexels.com/photos/3746586/pexels-photo-3746586.jpeg'],
-      ownerName: 'Nasir Khan'
+      images: ['https://covers.openlibrary.org/b/isbn/9780385721230-L.jpg'],
+      ownerNames: ['Nasir Khan', 'Fouzia Bibi', 'Muhammad Ali']
     }
   ]);
 
@@ -351,7 +351,9 @@ function App() {
     }
     
     if (searchCity) {
-      filtered = filtered.filter(book => book.city.toLowerCase() === searchCity.toLowerCase());
+      filtered = filtered.filter(book => 
+        book.cities.some(city => city.toLowerCase() === searchCity.toLowerCase())
+      );
     }
     
     setFilteredBooks(filtered);
@@ -553,7 +555,9 @@ function App() {
                         <span>{book.condition}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">📍 {book.city}</span>
+                        <div className="text-sm text-gray-600">
+                          📍 {book.cities.length === 1 ? book.cities[0] : `${book.cities[0]} +${book.cities.length - 1} more`}
+                        </div>
                         <button className="bg-[#6C9A8B] text-white px-3 py-1 rounded text-sm hover:bg-[#5a7f73] transition-colors">
                           Request
                         </button>

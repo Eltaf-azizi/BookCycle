@@ -88,8 +88,10 @@ export interface Book {
   description?: string;
   images: string[];
   ownerId: string;
-  ownerName: string;
-  city: string;
+  ownerName?: string; // For backward compatibility
+  ownerNames?: string[]; // New structure for multiple owners
+  city?: string; // For backward compatibility
+  cities?: string[]; // New structure for multiple cities
   exactLocation?: string;
   status: 'Available' | 'Reserved' | 'Given Away';
   createdAt: Date;

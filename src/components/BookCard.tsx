@@ -109,12 +109,22 @@ const BookCard: React.FC<BookCardProps> = ({ book, onRequest }) => {
         
         <div className="mt-2 flex items-center">
           <MapPin className="h-4 w-4 text-[#C14953] mr-1" />
-          <span className="text-sm text-gray-700">{book.city}</span>
+          <span className="text-sm text-gray-700">
+            {book.cities && book.cities.length > 0 
+              ? (book.cities.length === 1 ? book.cities[0] : `${book.cities[0]} +${book.cities.length - 1} more`)
+              : book.city || 'Location not specified'
+            }
+          </span>
         </div>
         
         <div className="mt-2 flex items-center">
           <User className="h-4 w-4 text-[#2D3142] mr-1" />
-          <span className="text-sm text-gray-700">{book.ownerName}</span>
+          <span className="text-sm text-gray-700">
+            {book.ownerNames && book.ownerNames.length > 0 
+              ? (book.ownerNames.length === 1 ? book.ownerNames[0] : `${book.ownerNames[0]} +${book.ownerNames.length - 1} more`)
+              : book.ownerName || 'Owner not specified'
+            }
+          </span>
         </div>
         
         <div className="mt-2 flex items-center">

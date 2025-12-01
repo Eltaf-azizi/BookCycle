@@ -67,10 +67,20 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, onClose, book, onSu
               <h3 className="font-semibold text-lg text-[#2D3142]">{book.title}</h3>
               <p className="text-gray-600 text-sm">by {book.author}</p>
               <div className="mt-1 flex items-center">
-                <span className="text-sm text-gray-700">Owner: {book.ownerName}</span>
+                <span className="text-sm text-gray-700">
+                  Owner: {book.ownerNames && book.ownerNames.length > 0 
+                    ? (book.ownerNames.length === 1 ? book.ownerNames[0] : `${book.ownerNames[0]} +${book.ownerNames.length - 1} more`)
+                    : book.ownerName || 'Owner not specified'
+                  }
+                </span>
               </div>
               <div className="mt-1 flex items-center">
-                <span className="text-sm text-gray-700">Location: {book.city}</span>
+                <span className="text-sm text-gray-700">
+                  Location: {book.cities && book.cities.length > 0 
+                    ? (book.cities.length === 1 ? book.cities[0] : `${book.cities[0]} +${book.cities.length - 1} more`)
+                    : book.city || 'Location not specified'
+                  }
+                </span>
               </div>
             </div>
           </div>
