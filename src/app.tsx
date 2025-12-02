@@ -119,6 +119,53 @@ function AppContent() {
     
     setFilteredBooks(filtered);
   }, [searchQuery, searchCity, books]);
+  
+  // Auth modal handlers
+  const handleLoginClick = () => {
+    setAuthModalType('login');
+    setIsAuthModalOpen(true);
+  };
+
+  const handleSignupClick = () => {
+    setAuthModalType('signup');
+    setIsAuthModalOpen(true);
+  };
+
+  const handleAuthModalClose = () => {
+    setIsAuthModalOpen(false);
+    setAuthModalType(null);
+  };
+
+  // Request handlers
+  const handleRequestBook = (bookId: string) => {
+    if (!isAuthenticated) {
+      handleLoginClick();
+      return;
+    }
+
+    const book = books.find(b => b.id === bookId);
+    if (book) {
+      setSelectedBook(book);
+      setIsRequestModalOpen(true);
+    }
+  };
+
+  const handleRequestSubmit = (request: Partial<BookRequest>) => {
+    if (!user || !selectedBook) return;
+
+    const newRequest: BookRequest = {
+      id: Date.now().toString(),
+      bookId: selectedBook.id,
+      requesterId: user.id,
+      requesterName: user.name,
+      ownerId: selectedBook.ownerId,
+      status: 'Pending',
+      message: request.message || '',
+      createdAt: new Date()
+    };
+
+    setMockRequests([...mockRequests, newRequest]);
+    
 
   return (
     <div className="min-h-screen bg-[#F7F3E3]">
