@@ -166,6 +166,104 @@ function AppContent() {
 
     setMockRequests([...mockRequests, newRequest]);
     
+    // Create notification for book owner
+    const notification: Notification = {
+      id: Date.now().toString(),
+      userId: selectedBook.ownerId,
+      type: 'book_request',
+      title: 'New Book Request',
+      message: `${user.name} requested "${selectedBook.title}"`,
+      createdAt: new Date(),
+      read: false,
+      metadata: { requestId: newRequest.id, bookId: selectedBook.id }
+    };
+
+    setMockNotifications([...mockNotifications, notification]);
+    setSelectedBook(null);
+  };
+
+  const handleMessagesClick = () => {
+    if (!isAuthenticated) {
+      handleLoginClick();
+      return;
+    }
+    setIsMessagesModalOpen(true);
+  };
+
+  const handleSendMessage = (toUserId: string, content: string) => {
+    if (!user) return;
+
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      senderId: user.id,
+      receiverId: toUserId,
+      content,
+      createdAt: new Date(),
+      read: false,
+      type: 'text'
+    };
+
+    setMockMessages([...mockMessages, newMessage]);
+  };
+
+  const handleMarkAsRead = (messageId: string) => {
+    setMockMessages(messages => 
+      messages.map(msg => 
+        msg.id === messageId ? { ...msg, read: true } : msg
+      )
+    );
+  };
+
+  const handleMarkAsReadNotification = (notificationId: string) => {
+    setMockNotifications(notifications => 
+      notifications.map(notif => 
+        notif.id === notificationId ? { ...notif, read: true } : notif
+      )
+    );
+  };
+
+  const handleMarkAllAsRead = () => {
+    setMockNotifications(notifications => 
+      notifications.map(notif => ({ ...notif, read: true }))
+    );
+  };
+
+  const handleDeleteNotification = (notificationId: string) => {
+    setMockNotifications(notifications => 
+      notifications.filter(notif => notif.id !== notificationId)
+    );
+  };
+
+  const handleAddBook = (bookData: any) => {
+    // Add the new book to the books array
+    const newBook: Book = {
+      id: Date.now().toString(),
+      ...bookData,
+      images: bookData.images || ['https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg'],
+      ownerId: user?.id || 'unknown',
+      ownerName: user?.name || 'Unknown',
+      cities: bookData.city ? [bookData.city] : [],
+      status: 'Available',
+      createdAt: new Date()
+    };
+
+    // Note: In a real app, this would be handled by state management
+    console.log('New book added:', newBook);
+  };
+
+  const handleProfileClick = () => {
+    if (!isAuthenticated) {
+      handleLoginClick();
+      return;
+    }
+    // TODO: Open profile modal or navigate to profile
+    alert('Profile modal would open here');
+  };
+
+  const handleSearch = ({ query, city }: { query: string; city: string }) => {
+    setSearchQuery(query);
+    setSearchCity(city);
+  };
 
   return (
     <div className="min-h-screen bg-[#F7F3E3]">
