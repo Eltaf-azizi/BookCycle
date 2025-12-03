@@ -8,8 +8,9 @@ import BookGrid from './components/BookGrid';
 import AddBookButton from './components/AddBookButton';
 import RequestModal from './components/RequestModal';
 import MessagesModal from './components/MessagesModal';
+import UserProfileModal from './components/UserProfileModal';
 import Footer from './components/Footer';
-import { Book, BookRequest, Message, Notification } from './types';
+import { Book, BookRequest, Message, Notification, User } from './types';
 
 function AppContent() {
   const { user, isAuthenticated } = useAuth();
@@ -19,10 +20,11 @@ function AppContent() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [isMessagesModalOpen, setIsMessagesModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   // App state
-  const [books] = useState<Book[]>([
+  const [books, setBooks] = useState<Book[]>([
     {
       id: '1',
       title: 'The Kite Runner',
@@ -241,13 +243,14 @@ function AppContent() {
       ...bookData,
       images: bookData.images || ['https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg'],
       ownerId: user?.id || 'unknown',
-      ownerName: user?.name || 'Unknown',
+      ownerNames: user?.name ? [user.name] : ['Unknown'],
       cities: bookData.city ? [bookData.city] : [],
       status: 'Available',
       createdAt: new Date()
     };
 
-    // Note: In a real app, this would be handled by state management
+    // Update the books state with the new book
+    setBooks(prevBooks => [...prevBooks, newBook]);
     console.log('New book added:', newBook);
   };
 
@@ -256,8 +259,12 @@ function AppContent() {
       handleLoginClick();
       return;
     }
-    // TODO: Open profile modal or navigate to profile
-    alert('Profile modal would open here');
+    setIsProfileModalOpen(true);
+  };
+
+  const handleUpdateUser = (updatedUser: Partial<User>) => {
+    // In a real app, this would update the user in the backend
+    console.log('User updated:', updatedUser);
   };
 
   const handleSearch = ({ query, city }: { query: string; city: string }) => {
@@ -447,6 +454,18 @@ function AppContent() {
         onSendMessage={handleSendMessage}
         onMarkAsRead={handleMarkAsRead}
       />
+
+      {/* User Profile Modal */}
+      {user && (
+        <UserProfileModal
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          user={user}
+          userBooks={books.filter(book => book.ownerId === user.id)}
+          onUpdateUser={handleUpdateUser}
+          onContactUser={() => setIsMessagesModalOpen(true)}
+        />
+      )}
     </div>
   );
 }
