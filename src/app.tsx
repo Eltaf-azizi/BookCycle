@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import AuthForms from './components/AuthForms';
 import SearchBar from './components/SearchBar';
+import AdvancedSearch, { SearchFilters } from './components/AdvancedSearch';
 import BookGrid from './components/BookGrid';
 import AddBookButton from './components/AddBookButton';
 import RequestModal from './components/RequestModal';
@@ -133,11 +134,13 @@ function AppContent() {
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
   const [searchCity, setSearchCity] = useState('');
+  const [advancedFilters, setAdvancedFilters] = useState<SearchFilters | null>(null);
   const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
     let filtered = [...books];
     
+    // Basic search filters
     if (searchQuery) {
       filtered = filtered.filter(book =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -152,8 +155,43 @@ function AppContent() {
       );
     }
     
+    // Advanced search filters
+    if (advancedFilters) {
+      if (advancedFilters.query && !searchQuery) {
+        filtered = filtered.filter(book =>
+          book.title.toLowerCase().includes(advancedFilters.query.toLowerCase()) ||
+          book.author.toLowerCase().includes(advancedFilters.query.toLowerCase()) ||
+          book.genre.toLowerCase().includes(advancedFilters.query.toLowerCase())
+        );
+      }
+      
+      if (advancedFilters.city) {
+        filtered = filtered.filter(book => 
+          book.cities && book.cities.some(city => city.toLowerCase() === advancedFilters.city.toLowerCase())
+        );
+      }
+      
+      if (advancedFilters.genre) {
+        filtered = filtered.filter(book =>
+          book.genre.toLowerCase() === advancedFilters.genre.toLowerCase()
+        );
+      }
+      
+      if (advancedFilters.condition) {
+        filtered = filtered.filter(book =>
+          book.condition === advancedFilters.condition
+        );
+      }
+      
+      if (advancedFilters.availability) {
+        filtered = filtered.filter(book =>
+          book.status === advancedFilters.availability
+        );
+      }
+    }
+    
     setFilteredBooks(filtered);
-  }, [searchQuery, searchCity, books]);
+  }, [searchQuery, searchCity, advancedFilters, books]);
   
   // Auth modal handlers
   const handleLoginClick = () => {
@@ -303,6 +341,10 @@ function AppContent() {
   const handleSearch = ({ query, city }: { query: string; city: string }) => {
     setSearchQuery(query);
     setSearchCity(city);
+  };
+
+  const handleAdvancedSearch = (filters: SearchFilters) => {
+    setAdvancedFilters(filters);
   };
 
   return (
@@ -459,9 +501,9 @@ function AppContent() {
               <p className="text-gray-600 mt-1">Stay connected with the BookCycle community</p>
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Community Leaderboard */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-1">
                 <CommunityLeaderboard currentUserId={user?.id} />
               </div>
               

@@ -3,6 +3,7 @@ import { X } from 'lucide-react';
 import { User as UserType, Book as BookType } from '../types';
 import UserProfile from './UserProfile';
 import ProfileEditModal from './ProfileEditModal';
+import UserRecommendations from './UserRecommendations';
 
 interface UserProfileModalProps {
   isOpen: boolean;
