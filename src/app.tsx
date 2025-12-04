@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Bell } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import AuthForms from './components/AuthForms';
@@ -9,6 +9,8 @@ import AddBookButton from './components/AddBookButton';
 import RequestModal from './components/RequestModal';
 import MessagesModal from './components/MessagesModal';
 import UserProfileModal from './components/UserProfileModal';
+import NotificationSystem from './components/NotificationSystem';
+import CommunityLeaderboard from './components/CommunityLeaderboard';
 import Footer from './components/Footer';
 import { Book, BookRequest, Message, Notification, User } from './types';
 
@@ -95,7 +97,38 @@ function AppContent() {
   // Mock data for demonstration
   const [mockRequests, setMockRequests] = useState<BookRequest[]>([]);
   const [mockMessages, setMockMessages] = useState<Message[]>([]);
-  const [mockNotifications, setMockNotifications] = useState<Notification[]>([]);
+  const [mockNotifications, setMockNotifications] = useState<Notification[]>([
+    {
+      id: '1',
+      userId: user?.id || 'demo-user',
+      type: 'book_request',
+      title: 'New Book Request',
+      message: 'Someone requested "The Kite Runner" from your collection',
+      createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+      read: false,
+      metadata: { requestId: 'req1', bookId: '1' }
+    },
+    {
+      id: '2',
+      userId: user?.id || 'demo-user',
+      type: 'request_accepted',
+      title: 'Request Accepted',
+      message: 'Your request for "1984" has been accepted!',
+      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      read: false,
+      metadata: { requestId: 'req2', bookId: '5' }
+    },
+    {
+      id: '3',
+      userId: user?.id || 'demo-user',
+      type: 'achievement',
+      title: 'New Achievement Unlocked!',
+      message: 'Welcome to BookCycle! You\'ve earned the "New Member" badge.',
+      createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+      read: true,
+      metadata: { achievement: 'new_member' }
+    }
+  ]);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
@@ -414,6 +447,47 @@ function AppContent() {
               >
                 Join The Community
               </button>
+            </div>
+          </div>
+        </section>
+        
+        {/* Community & Notifications Section */}
+        <section className="py-12 md:py-16 bg-[#F7F3E3]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#2D3142]">Community Activity</h2>
+              <p className="text-gray-600 mt-1">Stay connected with the BookCycle community</p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Community Leaderboard */}
+              <div className="lg:col-span-2">
+                <CommunityLeaderboard currentUserId={user?.id} />
+              </div>
+              
+              {/* Notifications Widget */}
+              <div className="lg:col-span-1">
+                <div className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="text-lg font-semibold text-[#2D3142] mb-4 flex items-center">
+                    <Bell className="h-5 w-5 mr-2 text-[#C14953]" />
+                    Recent Notifications
+                  </h3>
+                  {isAuthenticated && mockNotifications.length > 0 ? (
+                    <NotificationSystem
+                      notifications={mockNotifications}
+                      onMarkAsRead={handleMarkAsReadNotification}
+                      onMarkAllAsRead={handleMarkAllAsRead}
+                      onDeleteNotification={handleDeleteNotification}
+                    />
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      <Bell className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <p>No notifications yet</p>
+                      <p className="text-sm mt-1">Activity will appear here</p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </section>
