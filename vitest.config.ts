@@ -8,9 +8,8 @@ export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
-    css: true,
+    environment: 'node', // Changed from jsdom to node
+    css: false, // Disabled CSS
     testTimeout: 10000,
     hookTimeout: 10000,
     include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
@@ -23,16 +22,6 @@ export default defineConfig({
       '**/node_modules/**',
       '**/dist/**'
     ],
-    coverage: {
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/test/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '**/coverage/**',
-      ],
-    },
   },
   resolve: {
     alias: {

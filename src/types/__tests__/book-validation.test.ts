@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+/// <reference types="vitest" />
 import { Book } from '../index';
 
 // Type validation tests for Book type
