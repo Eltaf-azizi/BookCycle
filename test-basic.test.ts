@@ -1,4 +1,3 @@
-// Simple test to verify vitest is working
 import { expect, describe, it } from 'vitest';
 
 describe('Basic Test Suite', () => {

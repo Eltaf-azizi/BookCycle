@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
+import { vi } from 'vitest';
 import { AuthProvider } from '../contexts/AuthContext';
 
 // Custom render function that includes providers

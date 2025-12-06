@@ -13,6 +13,16 @@ export default defineConfig({
     css: true,
     testTimeout: 10000,
     hookTimeout: 10000,
+    include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    exclude: [
+      'node_modules',
+      'dist',
+      '.git',
+      '.cache',
+      '**/coverage/**',
+      '**/node_modules/**',
+      '**/dist/**'
+    ],
     coverage: {
       reporter: ['text', 'json', 'html'],
       exclude: [
