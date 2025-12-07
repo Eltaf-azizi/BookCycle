@@ -5,8 +5,8 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (userData: Partial<User>, password: string) => Promise<void>;
+  login: () => Promise<void>;
+  signup: (userData: Partial<User>) => Promise<void>;
   updateProfile: (userData: Partial<User>) => void;
   logout: () => void;
 }
@@ -25,14 +25,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async () => {
     setIsLoading(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       const mockUser: User = {
         id: Date.now().toString(),
         name: 'Test User',
-        email,
+        email: 'test@example.com',
         age: 25,
         city: 'Karachi',
         bio: 'Book lover and avid reader. Always excited to discover new stories and share knowledge through books.',
@@ -102,15 +102,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
       setUser(mockUser);
       localStorage.setItem('user', JSON.stringify(mockUser));
-    } catch (error) {
-      // Login failed
-      throw error;
     } finally {
       setIsLoading(false);
     }
   };
 
-  const signup = async (userData: Partial<User>, password: string) => {
+  const signup = async (userData: Partial<User>) => {
     setIsLoading(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -183,9 +180,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
       setUser(newUser);
       localStorage.setItem('user', JSON.stringify(newUser));
-    } catch (error) {
-      // Signup failed
-      throw error;
     } finally {
       setIsLoading(false);
     }

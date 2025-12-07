@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Book, MapPin, Star, Clock, User } from 'lucide-react';
+import { Book, MapPin, Clock, User } from 'lucide-react';
 import { Book as BookType } from '../types';
 
 interface BookCardProps {
   book: BookType;
-  onRequest: (bookId: string) => void;
+  onRequest: (id: string) => void;
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book, onRequest }) => {

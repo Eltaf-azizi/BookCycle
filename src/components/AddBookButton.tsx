@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Plus, X, Image, BookOpen } from 'lucide-react';
-import { pakistanCities } from '../types';
+import { Book, pakistanCities } from '../types';
 
 interface AddBookButtonProps {
-  onAddBook: (bookData: any) => void;
+  onAddBook: (bookData: Partial<Book>) => void;
 }
 
 const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
@@ -28,10 +28,15 @@ const AddBookButton: React.FC<AddBookButtonProps> = ({ onAddBook }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAddBook({
-      ...formData,
-      id: Date.now().toString(),
-      createdAt: new Date(),
-      status: 'Available',
+      title: formData.title,
+      author: formData.author,
+      isbn: formData.isbn,
+      condition: formData.condition as 'New' | 'Like New' | 'Good' | 'Worn',
+      genre: formData.genre,
+      description: formData.description,
+      city: formData.city,
+      exactLocation: formData.exactLocation,
+      images: formData.images,
     });
     setIsModalOpen(false);
     // Reset form

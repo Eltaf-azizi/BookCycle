@@ -4,7 +4,7 @@ import { Book } from '../types';
 
 interface BookGridProps {
   books: Book[];
-  onRequestBook: (bookId: string) => void;
+  onRequestBook: (id: string) => void;
 }
 
 const BookGrid: React.FC<BookGridProps> = ({ books, onRequestBook }) => {

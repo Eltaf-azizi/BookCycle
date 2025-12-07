@@ -4,7 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import AuthForms from './components/AuthForms';
 import SearchBar from './components/SearchBar';
-import AdvancedSearch, { SearchFilters } from './components/AdvancedSearch';
+import { SearchFilters } from './components/AdvancedSearch';
 import BookGrid from './components/BookGrid';
 import AddBookButton from './components/AddBookButton';
 import RequestModal from './components/RequestModal';
@@ -307,15 +307,18 @@ function AppContent() {
     );
   };
 
-  const handleAddBook = (bookData: any) => {
+  const handleAddBook = (bookData: Partial<Book>) => {
     // Add the new book to the books array
     const newBook: Book = {
       id: Date.now().toString(),
-      ...bookData,
+      title: bookData.title || 'Unknown Title',
+      author: bookData.author || 'Unknown Author',
+      genre: bookData.genre || 'Unknown Genre',
+      condition: bookData.condition || 'Good',
       images: bookData.images || ['https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg'],
       ownerId: user?.id || 'unknown',
       ownerNames: user?.name ? [user.name] : ['Unknown'],
-      cities: bookData.city ? [bookData.city] : [],
+      cities: bookData.cities || [],
       status: 'Available',
       createdAt: new Date()
     };
@@ -341,10 +344,6 @@ function AppContent() {
   const handleSearch = ({ query, city }: { query: string; city: string }) => {
     setSearchQuery(query);
     setSearchCity(city);
-  };
-
-  const handleAdvancedSearch = (filters: SearchFilters) => {
-    setAdvancedFilters(filters);
   };
 
   return (
