@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+/// <reference types="vitest" />
 import { Book } from '../../types';
 
 // Example test file demonstrating vitest structure
