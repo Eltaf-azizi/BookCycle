@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-# BookCycle Pakistan 🇵🇰
+
+# BookCycle Pakistan
 
 BookCycle is a community-driven book exchange platform designed specifically for Pakistan. It allows book lovers to share, exchange, and discover books across major cities in Pakistan, promoting sustainable reading and knowledge sharing.
 
