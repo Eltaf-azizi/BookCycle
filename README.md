@@ -136,21 +136,6 @@ The built files will be in the `dist` directory, ready for deployment.
 - Meeting location guidelines
 - Report and block functionality (planned)
 
-## 🚧 Future Enhancements
-
-### Phase 2 Features
-- [ ] Real-time chat system between users
-- [ ] Push notifications for new requests
-- [ ] Advanced filtering (price range, publication year)
-- [ ] Book recommendations based on reading history
-- [ ] Social features (user profiles, reviews)
-
-### Phase 3 Features
-- [ ] Mobile app (React Native)
-- [ ] Integration with local bookstores
-- [ ] Academic book sections for students
-- [ ] Corporate book donation programs
-- [ ] Reading challenges and community events
 
 ## 🤝 Contributing
 
